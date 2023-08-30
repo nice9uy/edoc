@@ -1,0 +1,22 @@
+{% extends 'base_index.html' %} 
+{% load static %} 
+
+{% block tambah_data %}
+
+{%include 'partials/header.html' %}
+
+
+<div class="container mt-5">
+    <p class="text-center" style="font-size: 25px;">TAMBAH DATA</p>
+    <form action="{% url 'tambah_data'%}" method="POST" enctype="multipart/form-data">  
+       {% csrf_token %}     
+        
+        <input class="form-control form-control-lg " type="file" accept=".pdf" id="file_input" name="file_name" />
+  
+        <div class="d-grid gap-2 col-3 mx-auto mt-5">
+            <button type="submit" class="btn btn-success">PROSES</button>
+        </div>
+  </form>
+</div>
+
+{% endblock tambah_data %}

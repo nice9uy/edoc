@@ -1,0 +1,51 @@
+{% extends 'base_index.html' %} 
+{% load static %} 
+
+{% block login %}
+
+      <div class="container mt-5 pt-5">
+        <div class="row">
+          <div class="col-12 col-sm-7 col-md-4 m-auto">
+            <div class="card border-0 shadow">
+              <div class="card-body">
+                <div class="text-center">
+                  <a href="{% url 'login' %}">
+                    <img
+                      src="{% static 'img/kemhan.png'%}"
+                      alt="KEMHAN LOGO"
+                      width="300"
+                      height="300"
+                    />
+                  </a>
+                </div>
+                <form method="POST" action="{% url 'login' %}">
+                  {% csrf_token %}
+                  <input
+                    type="text"
+                    name="username"
+                    id="username"
+                    class="form-control py-2"
+                    placeholder="Username"
+                    required
+                  />
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    class="form-control my-4 py-2"
+                    placeholder="Password"
+                    required
+                  />
+                  <div class="d-grid text-center mt-3 mb-4">
+                    <button class="btn btn-primary">Login</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+{% endblock login %}
+

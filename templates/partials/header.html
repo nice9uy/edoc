@@ -1,0 +1,38 @@
+{% load static %}
+
+<div>
+  <nav class="navbar bg-body-secondary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <img
+          src="{% static 'img/kemhan.png'%}"
+          alt="KEMHAN Logo"
+          width="50"
+          height="50"
+        />
+        <span>e-doc Baranahan KEMHAN</span>
+      </a>
+      <nav class="navbar navbar-expand-sm ">
+        <div class="container-fluid ">
+          <ul class="navbar-nav gap-4">
+            <li class="nav-item">
+              <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'home' %}" >Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'tambah_data' %}">Tambah Data</a>
+            </li>
+            <li class="nav-item">
+              <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="#">Grafik Laporan</a>
+            </li>
+            <li class="nav-item">
+              <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'setting' %}">Settings</a>
+            </li>
+            <li class="nav-item">
+              <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'logout' %}">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </nav>
+</div>
