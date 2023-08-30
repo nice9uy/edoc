@@ -10,7 +10,7 @@ class DatabaseSurat(models.Model):
     user = models.CharField(max_length=30)
     surat = models.CharField(max_length=10)
     klasifikasi = models.CharField(max_length=30)
-    katagori = models.CharField(max_length=30)
+    kelompok = models.CharField(max_length=30)
     tgl = models.DateField()
     no_surat = models.TextField(max_length=200)
     kepada = models.CharField(max_length=200)
@@ -25,9 +25,9 @@ class DatabaseSurat(models.Model):
         db_table = "DatabaseSurat"
 
 class KlasifikasiSurat(models.Model):
-    username = models.TextField(max_length=30)
-    kode = models.TextField(max_length=10)
-    nama_klasifikasi = models.TextField(max_length=30)
+    username = models.CharField(max_length=30)
+    kode = models.CharField(max_length=10)
+    nama_klasifikasi = models.CharField(max_length=30)
 
     def __str__(self):
         return str(self.username)
@@ -35,13 +35,13 @@ class KlasifikasiSurat(models.Model):
     class Meta:
         db_table = "KlasifikasiSurat"
 
-class JenisSurat(models.Model):
-    username = models.TextField(max_length=30)
-    kode = models.TextField(max_length=10)
-    nama_jenis_surat = models.TextField(max_length=30)
+class KelompokSurat(models.Model):
+    username = models.CharField(max_length=30)
+    kode = models.CharField(max_length=10)
+    nama_kelompok = models.CharField(max_length=30)
 
     def __str__(self):
         return str(self.username)
 
     class Meta:
-        db_table = "JenisSurat"
+        db_table = "KelompokSurat"
