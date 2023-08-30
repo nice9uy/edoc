@@ -5,7 +5,6 @@
 
 {%include 'partials/header.html' %}
 
-
 <div class="container mt-5">
     <p class="text-center" style="font-size: 25px;">TAMBAH DATA</p>
     <form action="{% url 'tambah_data'%}" method="POST" enctype="multipart/form-data">  
@@ -17,6 +16,12 @@
             <button type="submit" class="btn btn-success">PROSES</button>
         </div>
   </form>
+</div>
+
+<div class="container">
+    <footer class="py-3 my-4">
+      <p class="text-center text-muted">&copy; 2023 e-Doc Bag Datin - Baranahan</p>
+    </footer>
 </div>
 
 {% endblock tambah_data %}

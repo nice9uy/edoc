@@ -22,8 +22,6 @@ def home(request):
     # print(request.user)
     return render(request,'pages/index.html', context)
 
-
-
 @csrf_protect
 @login_required(login_url="/accounts/login/")
 def tambah_data(request):

@@ -12,7 +12,7 @@
             <thead>
                 <tr>
                     <th class="text-center">Kode</th>
-                    <th class="text-center">Klasifikasi</th>
+                    <th class="text-center">Nama Klasifikasi</th>
                     <th class="text-center">Aksi</th>
                 </tr>
             </thead>
@@ -26,7 +26,7 @@
             </tbody>
         </table>
         <div class="gap-2 col-3 mx-auto mt-5">
-            <button type="submit" class="btn btn-success">Tambah Kode</button>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalKlasifikasi">Tambah Kode Klasifikasi</button>
         </div>
     </div>
     <div class="container-fluid mt-3 text-white">
@@ -35,7 +35,7 @@
             <thead>
                 <tr>
                     <th class="text-center">Kode</th>
-                    <th class="text-center">Kelompok</th>
+                    <th class="text-center">Nama Kelompok</th>
                     <th class="text-center">Aksi</th>
                 </tr>
             </thead>
@@ -49,10 +49,69 @@
             </tbody>
         </table>
         <div class="gap-2 col-3 mx-auto mt-5">
-            <button type="submit" class="btn btn-success">Tambah Kode</button>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalKelompok">Tambah Kode Kelompok</button>
         </div>
     </div>
 </div>
 
+<div class="modal fade" id="ModalKlasifikasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Kode Klasifikasi</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Kode</label>
+                  <input type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Nama Klasifikasi</label>
+                  <input type="text" class="form-control" id="recipient-name">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <div class="modal fade" id="ModalKelompok" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Kode Kelompok</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Kode</label>
+                  <input type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Nama Kelompok</label>
+                  <input type="text" class="form-control" id="recipient-name">
+                </div>
+            </form>
+      
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<div class="container">
+    <footer class="py-3 my-4">
+      <p class="text-center text-muted">&copy; 2023 e-Doc Bag Datin - Baranahan</p>
+    </footer>
+</div>
 {% endblock settings %}
