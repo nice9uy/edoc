@@ -25,17 +25,19 @@ class DatabaseSurat(models.Model):
         db_table = "DatabaseSurat"
 
 class KlasifikasiSurat(models.Model):
+    id = models.AutoField(primary_key=True, unique=True)
     username = models.CharField(max_length=30)
     kode = models.CharField(max_length=10)
     nama_klasifikasi = models.CharField(max_length=30)
 
     def __str__(self):
-        return str(self.username)
+        return str(self.username )
 
     class Meta:
         db_table = "KlasifikasiSurat"
 
 class KelompokSurat(models.Model):
+    id = models.AutoField(primary_key=True, unique=True)
     username = models.CharField(max_length=30)
     kode = models.CharField(max_length=10)
     nama_kelompok = models.CharField(max_length=30)
