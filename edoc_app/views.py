@@ -88,26 +88,26 @@ def tambah_data(request):
 
         
 @login_required(login_url="/accounts/login/")
-def setting(request, delete_id):
+def setting(request):
     user_name = request.user
     klasifikasi = KlasifikasiSurat.objects.filter(username = user_name).values()
     kelompok = KelompokSurat.objects.filter(username = user_name).values()
 
-    klasifikasi_delete = KlasifikasiSurat.objects.get(pk = delete_id)
+    # klasifikasi_delete = KlasifikasiSurat.objects.get(pk = delete_id)
 
     context = {
         'page_title' : 'Setting',
         'klasifikasi' : klasifikasi,
         'kelompok' : kelompok,
-        'delete_data' : klasifikasi_delete 
+        # 'delete_data' : klasifikasi_delete 
     }
 
-    if request.method == 'POST':
-        klasifikasi_delete.delete()
-        return redirect('setting')
+    # if request.method == 'POST':
+    #     klasifikasi_delete.delete()
+    #     return redirect('setting')
     
-    else:
-        return render(request,'pages/setting.html', context)
+    
+    return render(request,'pages/setting.html', context)
 
 @csrf_protect
 def setting_klasifikasi(request):

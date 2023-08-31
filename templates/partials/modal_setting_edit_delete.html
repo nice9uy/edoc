@@ -1,0 +1,125 @@
+{% load static %}
+
+<!-- modal untuk edit klasifikasi -->
+
+<div class="modal fade" id="button_edit_klasifikasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data Klasifikasi</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form action="{% url 'setting_klasifikasi' %}" method="POST">
+          {% csrf_token %}
+          <div class="modal-body">
+              <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Kode</label>
+                  <input type="text" class="form-control" id="kode_klasifikasi_surat" name="kode_klasifikasi_surat">
+              </div>
+              <div class="mb-3">
+                    <label for="message-text" class="col-form-label">Nama Klasifikasi Surat</label>
+                    <input type="text" class="form-control" id="kode_klasifikasi_surat" name="nama_klasifikasi_surat">
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal untuk delete klasifikasi -->
+
+  <div class="modal fade" id="button_delete_klasifikasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Data Klasifikasi</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form action="{% url 'setting_klasifikasi' %}" method="POST">
+          {% csrf_token %}
+          <div class="modal-body">
+              <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Kode</label>
+                  <input type="text" class="form-control" id="kode_klasifikasi_surat" name="kode_klasifikasi_surat">
+              </div>
+              <div class="mb-3">
+                    <label for="message-text" class="col-form-label">Nama Klasifikasi Surat</label>
+                    <input type="text" class="form-control" id="kode_klasifikasi_surat" name="nama_klasifikasi_surat">
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- modal untuk edit Kelompok -->
+
+<div class="modal fade" id="button_edit_kelompok" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data Kelompok</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form action="{% url 'setting_klasifikasi' %}" method="POST">
+          {% csrf_token %}
+          <div class="modal-body">
+              <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Kode</label>
+                  <input type="text" class="form-control" id="kode_klasifikasi_surat" name="kode_klasifikasi_surat">
+              </div>
+              <div class="mb-3">
+                    <label for="message-text" class="col-form-label">Nama Klasifikasi Surat</label>
+                    <input type="text" class="form-control" id="kode_klasifikasi_surat" name="nama_klasifikasi_surat">
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal untuk delete Kelompok -->
+
+  <div class="modal fade" id="button_delete_kelompok" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Data Kelompok</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form action="{% url 'setting_klasifikasi' %}" method="POST">
+          {% csrf_token %}
+          <div class="modal-body">
+              <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Kode</label>
+                  <input type="text" class="form-control" id="kode_klasifikasi_surat" name="kode_klasifikasi_surat">
+              </div>
+              <div class="mb-3">
+                    <label for="message-text" class="col-form-label">Nama Kelompok Surat</label>
+                    <input type="text" class="form-control" id="kode_klasifikasi_surat" name="nama_klasifikasi_surat">
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
