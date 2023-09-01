@@ -5,6 +5,7 @@
 
 {%include 'partials/header.html' %}
 
+
 <div class="d-flex flex-row">
     <div class="container-fluid mt-1 text-white">
         <h5 class="text-center">Kode Klasifikasi Surat</h5>
@@ -19,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for data in klasifikasi %}
+                {% for data in klasifikasi %} 
                 <tr>    
                         <td class="text-center">{{ data.kode }}</td>
                         <td>{{ data.nama_klasifikasi }}</td>
@@ -128,6 +129,8 @@
       </div>
     </div>
 
+
+    
 {% include 'partials/modal_setting_edit_delete.html' %}
   
 

@@ -32,6 +32,8 @@ def tambah_data(request):
     files_upload = request.FILES.get('file_name')
     files_name = str(files_upload)
     upload_name_files = files_name.split(',')
+    
+
     user_name = request.user
     try:  
         surat = upload_name_files[1].capitalize()

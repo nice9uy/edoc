@@ -7,10 +7,36 @@
 
 <div class="container mt-5">
     <p class="text-center" style="font-size: 25px;">TAMBAH DATA</p>
-    <form action="{% url 'tambah_data'%}" method="POST" enctype="multipart/form-data">  
+    <form action="{% url 'tambah_data'%}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate >  
        {% csrf_token %}     
         
-        <input class="form-control form-control-lg " type="file" accept=".pdf" id="file_input" name="file_name" />
+        <input class="form-control " type="file" accept=".pdf" id="file_input" name="file_name" required />
+
+        <div class="d-flex mt-3 gap-4">
+          <select class="form-select" required aria-label="Default select example">
+            <option value="">SURAT</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+
+          <select class="form-select" required aria-label="Default select example">
+            <option value="">KLASIFIKASI SURAT</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+
+          <select class="form-select" required aria-label="Default select example">
+            <option value="">KELOMPOK SURAT</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+          <div>
+              <input type="date" class="form-control" required>
+          </div>
+        </div>
   
         <div class="d-grid gap-2 col-3 mx-auto mt-5">
             <button type="submit" class="btn btn-success">PROSES</button>
