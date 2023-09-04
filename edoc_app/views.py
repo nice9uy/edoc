@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from pathlib import Path
-from . models import DatabaseSurat,KlasifikasiSurat,KelompokSurat
+from . models import DatabaseSurat, KlasifikasiSurat, KelompokSurat, NamaSurat
 from django.views.decorators.csrf import csrf_protect
 from datetime import date
 from django.contrib import messages
@@ -13,10 +13,6 @@ from django.contrib.auth import get_user_model
 def home(request):
     user_name = request.user
     datasemuasurat = DatabaseSurat.objects.filter(user = user_name).values()
-    # User = get_user_model()
-    # users = User.objects.all()
-
-    # print(users)
 
     context = {
         'page_title'     : 'Home',
@@ -29,12 +25,19 @@ def home(request):
 @csrf_protect
 @login_required(login_url="/accounts/login/")
 def tambah_data(request):
+    user_name = request.user
+    surat = NamaSurat.objects.values('nama_surat').distinct().order_by('nama_surat')
+    klasifikasi = KlasifikasiSurat.objects.filter(username = user_name).values()
+    kelompok = KelompokSurat.objects.filter(username = user_name).values()
+
+    print(surat)
+    
     files_upload = request.FILES.get('file_name')
     files_name = str(files_upload)
     upload_name_files = files_name.split(',')
-    
 
-    user_name = request.user
+
+    
     try:  
         surat = upload_name_files[1].capitalize()
         klasifikasi_surat = upload_name_files[0].capitalize()
@@ -82,7 +85,10 @@ def tambah_data(request):
         return redirect('home')
         
     context = {
-        'page_title' : 'Tambah Data'
+        'page_title' : 'Tambah Data',
+        'surat'      : surat,
+        'klasifikasi' : klasifikasi,
+        'kelompok' : kelompok,
         
     }
    
@@ -92,35 +98,43 @@ def tambah_data(request):
 @login_required(login_url="/accounts/login/")
 def setting(request):
     user_name = request.user
+    surat = NamaSurat.objects.filter(username = user_name).values()
     klasifikasi = KlasifikasiSurat.objects.filter(username = user_name).values()
     kelompok = KelompokSurat.objects.filter(username = user_name).values()
 
-    # klasifikasi_delete = KlasifikasiSurat.objects.get(pk = delete_id)
-
     context = {
         'page_title' : 'Setting',
+        'surat'      : surat,
         'klasifikasi' : klasifikasi,
         'kelompok' : kelompok,
-        # 'delete_data' : klasifikasi_delete 
-    }
-
-    # if request.method == 'POST':
-    #     klasifikasi_delete.delete()
-    #     return redirect('setting')
-    
-    
+    }    
     return render(request,'pages/setting.html', context)
+
+
+@csrf_protect
+def setting_surat(request):
+    if request.method == 'POST':
+        user_name = request.user
+        nama_surat = request.POST.get('nama_surat')
+    
+        dbsurat = NamaSurat(
+            username   = user_name, 
+            nama_surat = nama_surat
+        )
+        dbsurat.save()
+        dbsurat.clean_fields()
+        return redirect('setting')
+    else:
+        return render(request,'pages/setting.html')
 
 @csrf_protect
 def setting_klasifikasi(request):
     if request.method == 'POST':
         user_name = request.user
-        kode = request.POST.get('kode_klasifikasi_surat')
         nama_klasifikasi = request.POST.get('nama_klasifikasi_surat')
     
         klasifikasi = KlasifikasiSurat(
             username         = user_name,
-            kode             = kode,
             nama_klasifikasi = nama_klasifikasi
         )
 
@@ -134,12 +148,10 @@ def setting_klasifikasi(request):
 def setting_kelompok(request):
     if request.method == 'POST':
         user_name = request.user
-        kode = request.POST.get('kode_kelompok_surat')
         nama_kelompok = request.POST.get('nama_kelompok_surat')
 
         kelompok = KelompokSurat(
             username      = user_name,
-            kode          = kode,
             nama_kelompok = nama_kelompok
         )
 
@@ -149,31 +161,6 @@ def setting_kelompok(request):
     else:
         return render(request,'pages/setting.html')
     
-# def delete_setting_klasifikasi(request,delete_id):
-#     user_name = request.user
-#     klasifikasi_delete = KlasifikasiSurat.objects.get(pk = delete_id)
-
-#     # print(klasifikasi_delete)
-#     klasifikasi_delete.delete()
-#     # if request.method == 'POST':
-#     #     kode     = request.POST.get('kode_klasifikasi_surat')
-#     #     nama_klasifikasi = request.POST.get('nama_klasifikasi_surat')
-        
-#     #     klasifikasi_delete = KlasifikasiSurat(
-#     #         id               = klasifikasi_delete,
-#     #         username         = user_name,
-#     #         kode             = kode,
-#     #         nama_klasifikasi = nama_klasifikasi
-#     #     )
-
-#     # #     print(id)
-
-#     # klasifikasi_delete.delete()
-#     return redirect('setting')
-    
-    # else:
-        # return render(request,'pages/setting.html')
-
 
 def edit(request):
     return render(request,'pages/edit_data.html')

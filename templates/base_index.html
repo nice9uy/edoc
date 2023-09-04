@@ -29,9 +29,19 @@
         <script type="text/javascript" src="{% static 'js/dataTables.bootstrap5.min.js' %}"></script> 
                  
         <script>
-             new DataTable('#tabel_index');
-             new DataTable('#tabel_klasifikasi');
-             new DataTable('#tabel_kelompok');
+              new DataTable('#tabel_index')
+            //  new DataTable('#tabel_index', {
+            //   "searching": false
+            //     });
+            new DataTable('#tabel_surat',{
+             "searching": false
+            });
+             new DataTable('#tabel_klasifikasi',{
+              "searching": false,
+             });
+             new DataTable('#tabel_kelompok',{
+              "searching": false
+             });
         </script>
         <script>
             (() => {
