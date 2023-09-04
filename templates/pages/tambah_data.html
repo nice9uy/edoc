@@ -13,27 +13,27 @@
         <input class="form-control " type="file" accept=".pdf" id="file_input" name="file_name" required />
 
         <div class="d-flex mt-3 gap-4">
-
-          <select class="form-select" required aria-label="Default select example">
-            <option value="">KLASIFIKASI SURAT</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-              
-          </select>
-        
-          <select class="form-select" required aria-label="Default select example">
-            <option value="">KLASIFIKASI SURAT</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+  
+          <select class="form-select" required aria-label="Default select example" name="surat">
+            <option value="">SURAT</option>
+            {% for v in surat %}
+            <option value="{{ v }}">{{v}}</option>
+            {% endfor %}
           </select>
 
-          <select class="form-select" required aria-label="Default select example">
+            
+          <select class="form-select" required aria-label="Default select example" name="klasifikasi">
+            <option value="">KLASIFIKASI SURAT</option>
+            {% for v in klasifikasi %}
+            <option value="{{ v }}">{{v}}</option>
+            {% endfor %}
+          </select>
+
+          <select class="form-select" required aria-label="Default select example" name="kelompok">
             <option value="">KELOMPOK SURAT</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            {% for v in kelompok %}
+            <option value="{{ v }}">{{v}}</option>
+            {% endfor %}
           </select>
           <div>
               <input type="date" class="form-control" required>

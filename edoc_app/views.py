@@ -26,18 +26,25 @@ def home(request):
 @login_required(login_url="/accounts/login/")
 def tambah_data(request):
     user_name = request.user
-    surat = NamaSurat.objects.values('nama_surat').distinct().order_by('nama_surat')
-    klasifikasi = KlasifikasiSurat.objects.filter(username = user_name).values()
-    kelompok = KelompokSurat.objects.filter(username = user_name).values()
+    surat = NamaSurat.objects.all().values_list("nama_surat", flat=True)
+    klasifikasi = KlasifikasiSurat.objects.all().values_list("nama_klasifikasi", flat=True)
+    kelompok = KelompokSurat.objects.all().values_list("nama_kelompok", flat=True)
 
-    print(surat)
-    
+   
     files_upload = request.FILES.get('file_name')
     files_name = str(files_upload)
     upload_name_files = files_name.split(',')
 
+    get_surat = request.POST.get('surat')
+    get_klasifikasi = request.POST.get('klasifikasi')
+    get_kelompok = request.POST.get('kelompok')
 
-    
+    #final_data = x
+
+    print(files_name)
+
+  
+
     try:  
         surat = upload_name_files[1].capitalize()
         klasifikasi_surat = upload_name_files[0].capitalize()
