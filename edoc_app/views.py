@@ -11,8 +11,8 @@ from django.contrib.auth import get_user_model
 
 @login_required(login_url="/accounts/login/")
 def home(request):
-    user_name = request.user
-    datasemuasurat = DatabaseSurat.objects.filter(user = user_name).values()
+    id_username = request.user.pk
+    datasemuasurat = DatabaseSurat.objects.filter(id_user = id_username).values()
 
     context = {
         'page_title'     : 'Home',
@@ -25,11 +25,11 @@ def home(request):
 @csrf_protect
 @login_required(login_url="/accounts/login/")
 def tambah_data(request):
-    user_name = request.user
-    surat = NamaSurat.objects.all().values_list("nama_surat", flat=True)
-    klasifikasi = KlasifikasiSurat.objects.all().values_list("nama_klasifikasi", flat=True)
-    kelompok = KelompokSurat.objects.all().values_list("nama_kelompok", flat=True)
+    id_username = request.user.pk
 
+    surat_id = NamaSurat.objects.filter(id_user = id_username).values_list("nama_surat" , flat=True)
+    klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
+    kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
    
     files_upload = request.FILES.get('file_name')
     files_name = str(files_upload)
@@ -38,30 +38,28 @@ def tambah_data(request):
     get_surat = request.POST.get('surat')
     get_klasifikasi = request.POST.get('klasifikasi')
     get_kelompok = request.POST.get('kelompok')
+    get_tanggal = request.POST.get('tanggal')
+    
+    # x = int(get_tanggal[3])
 
-    #final_data = x
-
-    print(files_name)
-
-  
-
+    # print(x)
+    
     try:  
-        surat = upload_name_files[1].capitalize()
-        klasifikasi_surat = upload_name_files[0].capitalize()
-        jenis_surat = upload_name_files[2]
-        ##### UNTUK TANGGAL  ##########
-        tgl  = upload_name_files[3]
+        ##### UNTUK TANGGAL  ##########   
+        # hari = get_tanggal[:3]
+        # bulan = get_tanggal[3:5]
+        # tahun = get_tanggal[5:9]
+    
+        # print(hari)
+        # print(bulan)
+        # print(tahun)
         
-        hari = int(tgl[:3])
-        bulan = int(tgl[3:5])
-        tahun = int(tgl[5:9])
-        
-        tanggal = date(tahun, bulan, hari)
+        # tanggal = date(tahun, bulan, hari)
         ################################### 
-        no_surat = upload_name_files[4]
-        kepada = upload_name_files[5]
+        no_surat = upload_name_files[0]
+        kepada = upload_name_files[1]
         #### UNTUK PRIHAL #################
-        prihal = upload_name_files[6]
+        prihal = upload_name_files[2]
         prihal_surat = prihal[:-4]
         ###################################
         upload_data_surat = files_upload
@@ -70,11 +68,11 @@ def tambah_data(request):
         hari_ini = date.today()
  
         upload_data = DatabaseSurat(
-            user        = user_name,
-            surat       = surat,
-            klasifikasi = klasifikasi_surat,
-            kelompok    = jenis_surat,
-            tgl         = tanggal,
+            id_user     = surat_id,
+            surat       = get_surat,
+            klasifikasi = get_klasifikasi,
+            kelompok    = get_kelompok,
+            # tgl         = tanggal,
             no_surat    = no_surat,
             kepada      = kepada,
             perihal     = prihal_surat,
@@ -93,7 +91,7 @@ def tambah_data(request):
         
     context = {
         'page_title' : 'Tambah Data',
-        'surat'      : surat,
+        'surat'      : surat_id,
         'klasifikasi' : klasifikasi,
         'kelompok' : kelompok,
         
@@ -104,10 +102,10 @@ def tambah_data(request):
         
 @login_required(login_url="/accounts/login/")
 def setting(request):
-    user_name = request.user
-    surat = NamaSurat.objects.filter(username = user_name).values()
-    klasifikasi = KlasifikasiSurat.objects.filter(username = user_name).values()
-    kelompok = KelompokSurat.objects.filter(username = user_name).values()
+    user_name = request.user.pk
+    surat = NamaSurat.objects.filter(id_user = user_name).values()
+    klasifikasi = KlasifikasiSurat.objects.filter(id_user = user_name).values()
+    kelompok = KelompokSurat.objects.filter(id_user = user_name).values()
 
     context = {
         'page_title' : 'Setting',
@@ -121,11 +119,11 @@ def setting(request):
 @csrf_protect
 def setting_surat(request):
     if request.method == 'POST':
-        user_name = request.user
+        user_name = request.user.pk
         nama_surat = request.POST.get('nama_surat')
     
         dbsurat = NamaSurat(
-            username   = user_name, 
+            id_user   = user_name, 
             nama_surat = nama_surat
         )
         dbsurat.save()
@@ -137,11 +135,11 @@ def setting_surat(request):
 @csrf_protect
 def setting_klasifikasi(request):
     if request.method == 'POST':
-        user_name = request.user
+        user_name = request.user.pk
         nama_klasifikasi = request.POST.get('nama_klasifikasi_surat')
     
         klasifikasi = KlasifikasiSurat(
-            username         = user_name,
+            id_user         = user_name,
             nama_klasifikasi = nama_klasifikasi
         )
 
@@ -154,11 +152,11 @@ def setting_klasifikasi(request):
 @csrf_protect
 def setting_kelompok(request):
     if request.method == 'POST':
-        user_name = request.user
+        user_name = request.user.pk
         nama_kelompok = request.POST.get('nama_kelompok_surat')
 
         kelompok = KelompokSurat(
-            username      = user_name,
+            id_user      = user_name,
             nama_kelompok = nama_kelompok
         )
 
