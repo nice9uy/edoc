@@ -101,8 +101,7 @@
           {% csrf_token %}
           <div class="modal-body">
               <div class="mb-3">
-                    <label for="message-text" class="col-form-label">Nama Surat</label>
-                    <input type="text" class="form-control" id="nama_surat" name="nama_surat" autofocus>
+                    <input type="text" class="form-control" id="nama_surat" name="nama_surat" autofocus required>
               </div>
           </div>
           <div class="modal-footer ">
@@ -128,8 +127,7 @@
           {% csrf_token %}
           <div class="modal-body">
               <div class="mb-3">
-                    <label for="message-text" class="col-form-label">Klasifikasi Surat</label>
-                    <input type="text" class="form-control" id="kode_klasifikasi_surat" name="nama_klasifikasi_surat" autofocus>
+                    <input type="text" class="form-control" id="kode_klasifikasi_surat" name="nama_klasifikasi_surat" autofocus required>
               </div>
           </div>
           <div class="modal-footer">
@@ -153,8 +151,7 @@
             {% csrf_token %}
             <div class="modal-body">
                 <div class="mb-3">
-                      <label for="message-text" class="col-form-label">Kelompok Surat</label>
-                      <input type="text" class="form-control" id="kode_kelompok_surat" name="nama_kelompok_surat" autofocus>
+                      <input type="text" class="form-control" id="kode_kelompok_surat" name="nama_kelompok_surat" autofocus required>
                 </div>
             </div>
             <div class="modal-footer ">
