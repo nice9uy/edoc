@@ -2,19 +2,20 @@
 
 <!-- modal untuk edit surat -->
 
-<div class="modal fade" id="button_edit_surat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{% for surat in edit_surat %}
+<div class="modal fade" id="button_edit_surat-{{forloop.counter}}" tabindex="-1" aria-labelledby="edit_surat" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Surat</h1>
+        <h1 class="modal-title fs-5" id="edit_surat">Edit Surat</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-      <form action="{% url 'setting_surat' %}" method="POST">
+      <form action="{% url 'edit_setting_surat' surat.id %}" method="POST">
         {% csrf_token %}
         <div class="modal-body">
             <div class="mb-3">
-                  <input type="text" class="form-control" id="kode_klasifikasi_surat" name="nama_klasifikasi_surat" required>
+                  <input type="text" class="form-control"  name="nama_surat" required value="{{ surat.nama_surat }}">
             </div>
         </div>
         <div class="modal-footer">
@@ -24,6 +25,7 @@
     </div>
   </div>
 </div>
+{% endfor %}
 
 <!-- modal untuk delete surat -->
 

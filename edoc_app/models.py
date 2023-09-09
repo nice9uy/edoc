@@ -18,8 +18,8 @@ class DatabaseSurat(models.Model):
     upload_file = models.FileField(upload_to= user_folder, null=False, blank=False)
     today = models.DateField()
 
-    def __str__(self):
-        return str(self.id)
+    # def __str__(self):
+    #     return str(self.id)
 
     class Meta:
         db_table = "DatabaseSurat"
@@ -29,8 +29,8 @@ class NamaSurat(models.Model):
     id_user = models.CharField(max_length=30)
     nama_surat = models.CharField(max_length=30)
 
-    def __str__(self):
-        return str(self.nama_surat )
+    # def __str__(self):
+    #     return str(self.id_user )
 
     class Meta:
         db_table = "Surat"
@@ -40,8 +40,8 @@ class KlasifikasiSurat(models.Model):
     id_user = models.CharField(max_length=30)
     nama_klasifikasi = models.CharField(max_length=30)
 
-    def __str__(self):
-        return str(self.nama_klasifikasi )
+    # def __str__(self):
+    #     return str(self.nama_klasifikasi )
 
     class Meta:
         db_table = "KlasifikasiSurat"
@@ -51,8 +51,8 @@ class KelompokSurat(models.Model):
     id_user = models.CharField(max_length=30)
     nama_kelompok = models.CharField(max_length=30)
 
-    def __str__(self):
-        return str(self.nama_kelompok)
+    # def __str__(self):
+    #     return str(self.nama_kelompok)
 
     class Meta:
         db_table = "KelompokSurat"

@@ -118,6 +118,7 @@ def setting(request):
 
 @csrf_protect
 def setting_surat(request):
+
     if request.method == 'POST':
         user_name = request.user.pk
         nama_surat = request.POST.get('nama_surat')
@@ -131,6 +132,29 @@ def setting_surat(request):
         return redirect('setting')
     else:
         return render(request,'pages/setting.html')
+    
+@csrf_protect
+def edit_setting_surat(request, id):
+    edit_surat = NamaSurat.objects.get().id
+    
+    if request.method == 'POST':
+        user_name = request.POST.get('id_user')
+        nama_surat = request.POST.get('nama_surat')
+    
+        edit_surat = NamaSurat(
+            id = id,
+            id_user   = user_name, 
+            nama_surat = nama_surat
+        )
+        edit_surat.save()
+        edit_surat.clean_fields()
+        return redirect('setting')
+    
+    context = {
+        'edit_surat' : edit_surat
+    }
+    
+    return render(request,'pages/setting.html',context)
 
 @csrf_protect
 def setting_klasifikasi(request):
