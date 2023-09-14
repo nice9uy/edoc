@@ -2,8 +2,7 @@
 
 <!-- modal untuk edit surat -->
 
-{% for surat in edit_surat %}
-<div class="modal fade" id="button_edit_surat-{{forloop.counter}}" tabindex="-1" aria-labelledby="edit_surat" aria-hidden="true">
+<div class="modal fade" id="button_edit_surat" tabindex="-1" aria-labelledby="edit_surat" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -11,7 +10,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-      <form action="{% url 'edit_setting_surat' surat.id %}" method="POST">
+      <form action="{% url 'setting_surat' %}" method="POST" class="was-validated">
         {% csrf_token %}
         <div class="modal-body">
             <div class="mb-3">
@@ -25,7 +24,7 @@
     </div>
   </div>
 </div>
-{% endfor %}
+
 
 <!-- modal untuk delete surat -->
 
@@ -63,7 +62,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <form action="{% url 'setting_klasifikasi' %}" method="POST">
+        <form action="{% url 'setting_klasifikasi' %}" method="POST" class="was-validated">
           {% csrf_token %}
           <div class="modal-body">
               <div class="mb-3">
@@ -76,7 +75,7 @@
         </form>
       </div>
     </div>
-  </div>
+  </div>Baranahan
 
   <!-- modal untuk delete klasifikasi -->
 
@@ -112,7 +111,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <form action="{% url 'setting_klasifikasi' %}" method="POST">
+        <form action="{% url 'setting_klasifikasi' %}" method="POSTBaranahan" class="was-validated">
           {% csrf_token %}
           <div class="modal-body">
               <div class="mb-3">

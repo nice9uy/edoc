@@ -21,7 +21,7 @@
             <tr>    
                     <td>{{ data.nama_surat }}</td>
                     <td class="text-center px-3"> 
-                          <button type="button" class="btn btn-success fas fa-edit"  data-bs-toggle="modal" data-bs-target="#button_edit_surat"></button>
+                          <button  type="button" class="btn btn-success fas fa-edit"  data-bs-toggle="modal" data-bs-target="#button_edit_surat" ></button>
                           <button type="button" class="btn btn-danger fa fa-trash"  data-bs-toggle="modal" data-bs-target="#button_delete_surat"></button>
                     </td>
             </tr>
@@ -97,7 +97,7 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Surat</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-        <form action="{% url 'setting_surat' %}" method="POST">
+        <form action="{% url 'setting_surat' %}" method="POST" class="was-validated">
           {% csrf_token %}
           <div class="modal-body">
               <div class="mb-3">
@@ -123,7 +123,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <form action="{% url 'setting_klasifikasi' %}" method="POST">
+        <form action="{% url 'setting_klasifikasi' %}" method="POST" class="was-validated">
           {% csrf_token %}
           <div class="modal-body">
               <div class="mb-3">
@@ -147,7 +147,7 @@
           <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Kelompok</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-          <form action="{% url 'setting_kelompok' %}" method="POST">
+          <form action="{% url 'setting_kelompok' %}" method="POST" class="was-validated">
             {% csrf_token %}
             <div class="modal-body">
                 <div class="mb-3">
