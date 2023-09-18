@@ -21,15 +21,15 @@
             <tr>    
                     <td>{{ data.nama_surat }}</td>
                     <td class="text-center px-3"> 
-                          <button type="button" class="btn btn-success fas fa-edit"  data-bs-toggle="modal" data-bs-target="#button_edit_surat{{ data.id }}" ></button>
-                          <button type="button" class="btn btn-danger fa fa-trash"  data-bs-toggle="modal" data-bs-target="#button_delete_surat{{ data.id }}"></button>
+                          <button type="button" class="btn btn-success fas fa-edit"  data-bs-toggle="modal"  data-placement="bottom" title="Edit" data-bs-target="#button_edit_surat{{ data.id }}" ></button>
+                          <button type="button" class="btn btn-danger fa fa-trash"  data-bs-toggle="modal" data-placement="bottom" title="Hapus" data-bs-target="#button_delete_surat{{ data.id }}"></button>
                     </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
     <div class="gap-2 col-sm-4 mx-auto">
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalSurat">Tambah Surat</button>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-placement="bottom" title="Tambah Data Surat" data-bs-target="#ModalSurat">Tambah Surat</button>
     </div>
 </div>
 
@@ -39,7 +39,7 @@
             <thead>
                 <tr>
                     <th class="text-center">Klasifikasi</th>
-                    <th class="text-center">Edit</th>
+                    <th class="text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,15 +47,15 @@
                 <tr>
                         <td>{{ data.nama_klasifikasi }}</td>
                         <td class="text-center"> 
-                             <button type="button" class="btn btn-success fas fa-edit"  data-bs-toggle="modal" data-bs-target="#edit_klasifikasi{{ data.id }}"></button>
-                             <button type="button" class="btn btn-danger fa fa-trash"  data-bs-toggle="modal" data-bs-target="#delete_klasifikasi{{ data.id }}"></button>
+                             <button type="button" class="btn btn-success fas fa-edit"  data-bs-toggle="modal"  data-placement="bottom" title="Edit" data-bs-target="#edit_klasifikasi{{ data.id }}"></button>
+                             <button type="button" class="btn btn-danger fa fa-trash"  data-bs-toggle="modal" data-placement="bottom" title="Hapus" data-bs-target="#delete_klasifikasi{{ data.id }}"></button>
                         </td>  
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
         <div class="gap-2 col-sm-4 mx-auto ">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalKlasifikasi">Tambah Klasifikasi</button>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-placement="bottom" title="Tambah Data Klasifikasi" data-bs-target="#ModalKlasifikasi">Tambah Klasifikasi</button>
         </div>
     </div>
 
@@ -65,7 +65,7 @@
           <thead>
               <tr>
                   <th class="text-center">Kelompok</th>
-                  <th class="text-center">Edit</th>
+                  <th class="text-center">Aksi</th>
               </tr>
           </thead>
           <tbody>
@@ -73,8 +73,8 @@
               <tr>
                       <td>{{ data.nama_kelompok }}</td>
                       <td class="text-center"> 
-                           <button type="button" class="btn btn-success fas fa-edit"  data-bs-toggle="modal" data-bs-target="#edit_kelompok{{ data.id }}"></button>
-                           <button type="button" class="btn btn-danger fa fa-trash"  data-bs-toggle="modal" data-bs-target="#delete_kelompok{{ data.id }}"></button>
+                           <button type="button" class="btn btn-success fas fa-edit"  data-bs-toggle="modal"  data-placement="bottom" title="Edit" data-bs-target="#edit_kelompok{{ data.id }}"></button>
+                           <button type="button" class="btn btn-danger fa fa-trash"  data-bs-toggle="modal"  data-placement="bottom" title="Hapus" data-bs-target="#delete_kelompok{{ data.id }}"></button>
                       </td>
                       
               </tr>
@@ -82,7 +82,7 @@
           </tbody>
       </table>
       <div class="gap-2 col-sm-4 mx-auto ">
-          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalKelompok">Tambah Kelompok</button>
+          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-placement="bottom" title="Tambah Data Kelompok" data-bs-target="#ModalKelompok">Tambah Kelompok</button>
       </div>
   </div>  
 

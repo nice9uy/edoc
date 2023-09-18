@@ -38,6 +38,9 @@ def tambah_data(request):
     get_klasifikasi = request.POST.get('klasifikasi')
     get_kelompok = request.POST.get('kelompok')
     get_tanggal = request.POST.get('tanggal')
+
+
+    print(upload_name_files)
     
     # x = int(get_tanggal[3])
 
@@ -45,48 +48,48 @@ def tambah_data(request):
     
     try:  
         ##### UNTUK TANGGAL  ##########   
-        # hari = get_tanggal[:3]
-        # bulan = get_tanggal[3:5]
-        # tahun = get_tanggal[5:9]
+        hari = get_tanggal[:3]
+        bulan = get_tanggal[3:5]
+        tahun = get_tanggal[5:9]
     
-        # print(hari)
-        # print(bulan)
-        # print(tahun)
+        print(hari)
+        print(bulan)
+        print(tahun)
         
         # tanggal = date(tahun, bulan, hari)
         ################################### 
-        no_surat = upload_name_files[0]
-        kepada = upload_name_files[1]
-        #### UNTUK PRIHAL #################
-        prihal = upload_name_files[2]
-        prihal_surat = prihal[:-4]
-        ###################################
-        upload_data_surat = files_upload
+        # no_surat = upload_name_files[0]
+        # kepada = upload_name_files[1]
+        # #### UNTUK PRIHAL #################
+        # prihal = upload_name_files[2]
+        # prihal_surat = prihal[:-4]
+        # ###################################
+        # upload_data_surat = files_upload
 
-        ##### Untuk Tanggal Sekarang ######
-        hari_ini = date.today()
+        # ##### Untuk Tanggal Sekarang ######
+        # hari_ini = date.today()
  
-        upload_data = DatabaseSurat(
-            id_user     = surat_id,
-            surat       = get_surat,
-            klasifikasi = get_klasifikasi,
-            kelompok    = get_kelompok,
-            # tgl         = tanggal,
-            no_surat    = no_surat,
-            kepada      = kepada,
-            perihal     = prihal_surat,
-            upload_file = upload_data_surat,
-            today       = hari_ini,
-        )
+        # upload_data = DatabaseSurat(
+        #     id_user     = surat_id,
+        #     surat       = get_surat,
+        #     klasifikasi = get_klasifikasi,
+        #     kelompok    = get_kelompok,
+        #     # tgl         = tanggal,
+        #     no_surat    = no_surat,
+        #     kepada      = kepada,
+        #     perihal     = prihal_surat,
+        #     upload_file = upload_data_surat,
+        #     today       = hari_ini,
+        # )
         
     except Exception as errorloading:
         print("Ada yang error karena :" , errorloading )
-        messages.error(request, "")
+    #     messages.error(request, "")
         
-    else:
-        upload_data.save()
-        messages.success(request, "fwedwefef")
-        return redirect('home')
+    # else:
+    #     upload_data.save()
+    #     messages.success(request, "fwedwefef")
+    #     return redirect('home')
         
     context = {
         'page_title' : 'Tambah Data',
