@@ -1,153 +1,154 @@
 {% load static %}
 
 <!-- modal untuk edit surat -->
+{% for data in surat %} 
+    <div class="modal fade" id="button_edit_surat{{ data.id }}" tabindex="-1" aria-labelledby="edit_surat" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="edit_surat">Edit Surat</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
 
-<div class="modal fade" id="button_edit_surat" tabindex="-1" aria-labelledby="edit_surat" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="edit_surat">Edit Surat</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <form action="{% url 'setting_surat' %}" method="POST" class="was-validated">
-        {% csrf_token %}
-        <div class="modal-body">
-            <div class="mb-3">
-                  <input type="text" class="form-control"  name="nama_surat" required value="{{ surat.nama_surat }}">
+          <form action ="{% url 'edit_setting_surat' data.id %}" method="POST" class="was-validated">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div class="mb-3">
+                      <input  type="text" class="form-control"  name="nama_surat" required value="{{ data.nama_surat }}">
+                </div>
             </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
         </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Save</button>
-        </div>
-      </form>
+      </div>
     </div>
-  </div>
-</div>
-
+{% endfor %}
 
 <!-- modal untuk delete surat -->
-
-<div class="modal fade" id="button_delete_surat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Surat</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form action="{% url 'setting_klasifikasi' %}" method="POST">
-        {% csrf_token %}
-        <div class="modal-body">
-            <div class="mb-3">
-                  <p>Apakah yakin surat ini ingin dihapus?</p>
+{% for data in surat %} 
+    <div class="modal fade" id="button_delete_surat{{ data.id }}" tabindex="-1" aria-labelledby="delete_surat" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="delete_surat">Hapus Surat</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="{% url 'delete_setting_surat' data.id %}" method="POST">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div class="mb-3">
+                      <p>Apakah yakin surat "{{ data.nama_surat }}" ingin dihapus?</p>
+                </div>
             </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
         </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Save</button>
-        </div>
-      </form>
+      </div>
     </div>
-  </div>
-</div>
-
+{% endfor %}
 
 
 <!-- modal untuk edit klasifikasi -->
+{% for data in klasifikasi %} 
+    <div class="modal fade" id="edit_klasifikasi{{ data.id }}" tabindex="-1" aria-labelledby="edit_klasifikasi" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="edit_klasifikasi">Edit Klasifikasi</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
 
-<div class="modal fade" id="button_edit_klasifikasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Klasifikasi</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <form action="{% url 'setting_klasifikasi' %}" method="POST" class="was-validated">
-          {% csrf_token %}
-          <div class="modal-body">
-              <div class="mb-3">
-                    <input type="text" class="form-control" id="kode_klasifikasi_surat" name="nama_klasifikasi_surat" required>
+            <form action="{% url 'edit_setting_klasifikasi' data.id %}" method="POST" class="was-validated">
+              {% csrf_token %}
+              <div class="modal-body">
+                  <div class="mb-3">
+                        <input type="text" class="form-control" name="nama_klasifikasi_surat" required value="{{ data.nama_klasifikasi }}">
+                  </div>
               </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </form>
           </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Save</button>
-          </div>
-        </form>
+        </div>
       </div>
-    </div>
-  </div>Baranahan
-
+{% endfor %}
   <!-- modal untuk delete klasifikasi -->
 
-  <div class="modal fade" id="button_delete_klasifikasi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Klasifikasi</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+{% for data in klasifikasi %} 
+      <div class="modal fade" id="delete_klasifikasi{{ data.id }}" tabindex="-1" aria-labelledby="delete_klasifikasi" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="delete_klasifikasi">Hapus Klasifikasi</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form action="{% url 'delete_setting_klasifikasi' data.id %}" method="POST">
+              {% csrf_token %}
+              <div class="modal-body">
+                <p>Apakah yakin Klasifikasi "{{data.nama_klasifikasi}}" ini ingin dihapus?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </form>
+          </div>
         </div>
-
-        <form action="{% url 'setting_klasifikasi' %}" method="POST">
-          {% csrf_token %}
-          <div class="modal-body">
-            <p>Apakah yakin Klasifikasi ini ingin dihapus?</p>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Save</button>
-          </div>
-        </form>
       </div>
-    </div>
-  </div>
-
+{% endfor %}
 
   <!-- modal untuk edit Kelompok -->
+{% for data in kelompok %} 
+    <div class="modal fade" id="edit_kelompok{{ data.id }}" tabindex="-1" aria-labelledby="edit_kelompok" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="edit_kelompok">Edit Kelompok</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
 
-<div class="modal fade" id="button_edit_kelompok" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Kelompok</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <form action="{% url 'setting_klasifikasi' %}" method="POSTBaranahan" class="was-validated">
-          {% csrf_token %}
-          <div class="modal-body">
-              <div class="mb-3">
-                    <input type="text" class="form-control" id="kode_klasifikasi_surat" name="nama_klasifikasi_surat" required>
+            <form action="{% url 'edit_setting_kelompok' data.id %}" method="POST" class="was-validated">
+              {% csrf_token %}
+              <div class="modal-body">
+                  <div class="mb-3">
+                        <input type="text" class="form-control" name="nama_kelompok_surat" required value="{{ data.nama_kelompok }}">
+                  </div>
               </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </form>
           </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Save</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- modal untuk delete Kelompok -->
-
-  <div class="modal fade" id="button_delete_kelompok" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Kelompok</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-
-        <form action="{% url 'setting_klasifikasi' %}" method="POST">
-          {% csrf_token %}
-          <div class="modal-body">
-            <p>Apakah yakin Kelompok ini ingin dihapus?</p>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Save</button>
-          </div>
-        </form>
       </div>
-    </div>
-  </div>
+{% endfor %}
+  <!-- modal untuk delete Kelompok -->
+{% for data in kelompok %} 
+      <div class="modal fade" id="delete_kelompok{{ data.id }}" tabindex="-1" aria-labelledby="delete_kelompok" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="delete_kelompok">Hapus Kelompok</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
 
+            <form action="{% url 'delete_setting_kelompok' data.id %}" method="POST">
+              {% csrf_token %}
+              <div class="modal-body">
+                <p>Apakah yakin Kelompok "{{data.nama_kelompok}}" ini ingin dihapus?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+{% endfor %}
 
 

@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from pathlib import Path
 from . models import DatabaseSurat, KlasifikasiSurat, KelompokSurat, NamaSurat
@@ -107,14 +106,16 @@ def setting(request):
     klasifikasi = KlasifikasiSurat.objects.filter(id_user = user_name).values()
     kelompok = KelompokSurat.objects.filter(id_user = user_name).values()
 
+    # print(surat)
+
     context = {
         'page_title' : 'Setting',
         'surat'      : surat,
         'klasifikasi' : klasifikasi,
         'kelompok' : kelompok,
     }    
-    return render(request,'pages/setting.html', context)
 
+    return render(request,'pages/setting.html', context)
 
 @csrf_protect
 def setting_surat(request):
@@ -134,27 +135,35 @@ def setting_surat(request):
         return render(request,'pages/setting.html')
     
 @csrf_protect
-def edit_setting_surat(request, id):
-    edit_surat = NamaSurat.objects.get().id
-    
+def edit_setting_surat(request, id_edit_setting):
+    edit_surat = get_object_or_404(NamaSurat, pk = id_edit_setting)
+
     if request.method == 'POST':
-        user_name = request.POST.get('id_user')
+        user_name = request.user.pk
         nama_surat = request.POST.get('nama_surat')
     
         edit_surat = NamaSurat(
-            id = id,
+            id = id_edit_setting,
             id_user   = user_name, 
-            nama_surat = nama_surat
+            nama_surat = nama_surat,
         )
         edit_surat.save()
         edit_surat.clean_fields()
         return redirect('setting')
     
-    context = {
-        'edit_surat' : edit_surat
-    }
     
-    return render(request,'pages/setting.html',context)
+    return render(request,'pages/setting.html')
+
+@csrf_protect
+def delete_setting_surat(request, id_delete_setting):
+    delete_surat = get_object_or_404(NamaSurat, pk = id_delete_setting)
+
+    if request.method == 'POST':
+        delete_surat.delete()
+        return redirect('setting')
+    
+    return render(request,'pages/setting.html')
+
 
 @csrf_protect
 def setting_klasifikasi(request):
@@ -172,6 +181,36 @@ def setting_klasifikasi(request):
         return redirect('setting')
     else:
         return render(request,'pages/setting.html')
+    
+@csrf_protect
+def edit_setting_klasifikasi(request, id_edit_klasifikasi):
+    edit_klasifikasi = get_object_or_404(KlasifikasiSurat, pk = id_edit_klasifikasi)
+
+    if request.method == 'POST':
+        user_name = request.user.pk
+        nama_surat = request.POST.get('nama_klasifikasi_surat')
+    
+        edit_klasifikasi = KlasifikasiSurat(
+            id = id_edit_klasifikasi,
+            id_user   = user_name, 
+            nama_klasifikasi = nama_surat,
+        )
+        edit_klasifikasi.save()
+        edit_klasifikasi.clean_fields()
+        return redirect('setting')
+    
+    
+    return render(request,'pages/setting.html')
+
+@csrf_protect
+def delete_setting_klasifikasi(request, id_delete_klasifikasi):
+    delete_klasifikasi = get_object_or_404(KlasifikasiSurat, pk = id_delete_klasifikasi)
+
+    if request.method == 'POST':
+        delete_klasifikasi.delete()
+        return redirect('setting')
+    
+    return render(request,'pages/setting.html')
 
 @csrf_protect
 def setting_kelompok(request):
@@ -189,6 +228,35 @@ def setting_kelompok(request):
         return redirect('setting')
     else:
         return render(request,'pages/setting.html')
+    
+@csrf_protect
+def edit_setting_kelompok(request, id_setting_kelompok):
+    edit_kelompok = get_object_or_404(KelompokSurat, pk = id_setting_kelompok)
+
+    if request.method == 'POST':
+        user_name = request.user.pk
+        nama_surat = request.POST.get('nama_kelompok_surat')
+    
+        edit_kelompok = KelompokSurat(
+            id = id_setting_kelompok,
+            id_user   = user_name, 
+            nama_kelompok = nama_surat,
+        )
+        edit_kelompok.save()
+        edit_kelompok.clean_fields()
+        return redirect('setting')
+    
+    return render(request,'pages/setting.html')
+
+@csrf_protect
+def delete_setting_kelompok(request, id_delete_kelompok):
+    delete_klasifikasi = get_object_or_404(KelompokSurat, pk = id_delete_kelompok)
+
+    if request.method == 'POST':
+        delete_klasifikasi.delete()
+        return redirect('setting')
+    
+    return render(request,'pages/setting.html')
     
 
 def edit(request):

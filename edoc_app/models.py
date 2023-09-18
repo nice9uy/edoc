@@ -51,8 +51,5 @@ class KelompokSurat(models.Model):
     id_user = models.CharField(max_length=30)
     nama_kelompok = models.CharField(max_length=30)
 
-    # def __str__(self):
-    #     return str(self.nama_kelompok)
-
     class Meta:
         db_table = "KelompokSurat"
