@@ -4,8 +4,11 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home' ),
     path('tambah_data/', views.tambah_data, name='tambah_data' ),
-    path('edit_data/', views.edit, name='edit'),
+    # path('edit_data/', views.edit, name='edit'),
     path('setting/', views.setting, name='setting'),
+
+    path('olah_data/', views.olah_data, name='olah_data'),
+    path('edit_olah_data/', views.edit_olah_data, name='edit_olah_data'),
 
     path('setting_surat/', views.setting_surat, name='setting_surat'),
     path('edit_setting_surat/<int:id_edit_setting>/', views.edit_setting_surat, name='edit_setting_surat'),
@@ -18,5 +21,8 @@ urlpatterns = [
     path('setting_kelompok/', views.setting_kelompok, name='setting_kelompok'),
     path('edit_setting_kelompok/ <int:id_setting_kelompok>/', views.edit_setting_kelompok, name='edit_setting_kelompok'),
     path('delete_setting_kelompok/<int:id_delete_kelompok>/', views.delete_setting_kelompok, name='delete_setting_kelompok'),
+
+
+
     # path('delete_kelompok/', views.setting_kelompok, name='setting_kelompok'),
 ]

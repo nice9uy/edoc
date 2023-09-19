@@ -1,0 +1,52 @@
+{% load static %}
+
+<!-- modal untuk edit Olah Data -->
+{% for data in surat %} 
+    <div class="modal fade" id="button_edit_surat{{ data.id }}" tabindex="-1" aria-labelledby="edit_surat" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="edit_surat">Edit Surat</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <form action ="{% url 'edit_setting_surat' data.id %}" method="POST" class="was-validated">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div class="mb-3">
+                      <input  type="text" class="form-control"  name="nama_surat" required value="{{ data.nama_surat }}">
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Edit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+{% endfor %}
+
+<!-- modal untuk delete Olah Data -->
+{% for data in surat %} 
+    <div class="modal fade" id="button_delete_surat{{ data.id }}" tabindex="-1" aria-labelledby="delete_surat" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="delete_surat">Hapus Surat</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="{% url 'delete_setting_surat' data.id %}" method="POST">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div class="mb-3">
+                      <p>Apakah yakin surat "{{ data.nama_surat }}" ingin dihapus?</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Hapus</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+{% endfor %}

@@ -1,13 +1,14 @@
 from django.db import models
 
 # Create your models here.
-def user_folder(instance, filename,):
-    return f"{instance.user}/{filename}"
+def user_folder(instance, filename):
+    return f"{instance.username}/{filename}"
 
 class DatabaseSurat(models.Model):
   
     id = models.AutoField(primary_key=True, unique=True)
     id_user = models.CharField(max_length=30)
+    username = models.CharField(max_length=30)
     surat = models.CharField(max_length=10)
     klasifikasi = models.CharField(max_length=30)
     kelompok = models.CharField(max_length=30)

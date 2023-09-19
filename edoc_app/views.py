@@ -25,71 +25,56 @@ def home(request):
 @login_required(login_url="/accounts/login/")
 def tambah_data(request):
     id_username = request.user.pk
+    username = request.user
+
+    hari_ini = date.today()
 
     surat_id = NamaSurat.objects.filter(id_user = id_username).values_list("nama_surat" , flat=True)
     klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
     kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
    
-    files_upload = request.FILES.get('file_name')
-    files_name = str(files_upload)
-    upload_name_files = files_name.split(',')
-
     get_surat = request.POST.get('surat')
     get_klasifikasi = request.POST.get('klasifikasi')
     get_kelompok = request.POST.get('kelompok')
     get_tanggal = request.POST.get('tanggal')
 
+    files_upload = request.FILES.get('file_name')
+    files_name = str(files_upload).split(',')
 
-    print(upload_name_files)
-    
-    # x = int(get_tanggal[3])
-
-    # print(x)
-    
+    filename_list_count = len(files_name)
+   
     try:  
-        ##### UNTUK TANGGAL  ##########   
-        hari = get_tanggal[:3]
-        bulan = get_tanggal[3:5]
-        tahun = get_tanggal[5:9]
-    
-        print(hari)
-        print(bulan)
-        print(tahun)
-        
-        # tanggal = date(tahun, bulan, hari)
-        ################################### 
-        # no_surat = upload_name_files[0]
-        # kepada = upload_name_files[1]
-        # #### UNTUK PRIHAL #################
-        # prihal = upload_name_files[2]
-        # prihal_surat = prihal[:-4]
-        # ###################################
-        # upload_data_surat = files_upload
+        no_surat = files_name[0]
+        kepada = files_name[1]
+        prihal = files_name[2] 
+        prihal_surat = prihal[:-4]
 
-        # ##### Untuk Tanggal Sekarang ######
-        # hari_ini = date.today()
- 
-        # upload_data = DatabaseSurat(
-        #     id_user     = surat_id,
-        #     surat       = get_surat,
-        #     klasifikasi = get_klasifikasi,
-        #     kelompok    = get_kelompok,
-        #     # tgl         = tanggal,
-        #     no_surat    = no_surat,
-        #     kepada      = kepada,
-        #     perihal     = prihal_surat,
-        #     upload_file = upload_data_surat,
-        #     today       = hari_ini,
-        # )
+
+        upload_data = DatabaseSurat(
+            id_user     = id_username,
+            username    = username,
+            surat       = get_surat,
+            klasifikasi = get_klasifikasi,
+            kelompok    = get_kelompok,
+            tgl         = get_tanggal,
+            no_surat    = no_surat,
+            kepada      = kepada,
+            perihal     = prihal_surat,
+            upload_file = files_upload,
+            today       = hari_ini,
+        )
         
-    except Exception as errorloading:
-        print("Ada yang error karena :" , errorloading )
-    #     messages.error(request, "")
+    except Exception:
+        pass
         
-    # else:
-    #     upload_data.save()
-    #     messages.success(request, "fwedwefef")
-    #     return redirect('home')
+    else:
+        if filename_list_count == 3:
+            upload_data.save()
+            print("vkhsbvkshbvskbhskbf")
+            return redirect('home')
+        else:
+            messages.warning(request,'bzdbdbzdb')
+            print("ada yang salah, cek lagi ")
         
     context = {
         'page_title' : 'Tambah Data',
@@ -262,5 +247,29 @@ def delete_setting_kelompok(request, id_delete_kelompok):
     return render(request,'pages/setting.html')
     
 
-def edit(request):
-    return render(request,'pages/edit_data.html')
+def olah_data(request):
+    id_username = request.user.pk
+    datasemuasurat = DatabaseSurat.objects.filter(id_user = id_username).values()
+
+    context = {
+        'page_title'     : 'Olah Data',
+        'datasemuasurat' :  datasemuasurat
+    }
+    return render(request,'pages/olah_data.html', context)
+
+def edit_olah_data(request, edit_olah_data):
+    edit_olah = get_object_or_404(DatabaseSurat, pk = edit_olah_data)
+
+    if request.method == 'POST':
+        id_user = request.user.pk
+        username = request.
+        nama_surat = request.POST.get('nama_surat')
+    
+        edit_olah = DatabaseSurat(
+            id = id_edit_setting,
+            id_user   = user_name, 
+            nama_surat = nama_surat,
+        )
+        edit_surat.save()
+   
+    return render(request,'pages/olah_data.html')
