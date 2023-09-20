@@ -33,8 +33,8 @@
                     <td>{{ data.perihal }}</td>
                     <td> <a class="nav-link active text-center" aria-current="page" target="_blank" href="/upload/{{ data.upload_file }}">Lihat</a> </td>
                     <td class="text-center px-3"> 
-                        <button type="button" class="btn btn-success fas fa-edit"  data-bs-toggle="modal"  data-placement="bottom" title="Edit" data-bs-target="#edit_olah_data{{ data.id }}" ></button>
-                        <button type="button" class="btn btn-danger fa fa-trash"  data-bs-toggle="modal" data-placement="bottom" title="Hapus" data-bs-target="#delete_olah_data{{ data.id }}"></button>
+                        <button type="button" class="btn btn-success fas fa-edit"  data-bs-toggle="modal"  data-placement="bottom" title="Edit" data-bs-target="#button_edit_olah_data{{ data.id }}" ></button>
+                        <button type="button" class="btn btn-danger fa fa-trash"  data-bs-toggle="modal" data-placement="bottom" title="Hapus" data-bs-target="#button_delete_olah_data{{ data.id }}"></button>
                   </td>
                </tr>
             {% endfor %}
@@ -42,9 +42,11 @@
     </table>
 </div>
 
+{% include 'partials/modal_olah_data.html' %}
+
 <div class="container">
     <footer class="py-3 my-4">
-        <p class="text-center text-muted">&copy; 2023 - {% now "Y" %}  e-Doc - Baranahan</p>
+        <p class="text-center text-muted">&copy; 2023 - {% now "Y" %}  e-doc - Baranahan</p>
     </footer>
 </div>
 

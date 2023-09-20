@@ -250,26 +250,58 @@ def delete_setting_kelompok(request, id_delete_kelompok):
 def olah_data(request):
     id_username = request.user.pk
     datasemuasurat = DatabaseSurat.objects.filter(id_user = id_username).values()
+    surat = DatabaseSurat.objects.values('surat').distinct()
+    klasifikasi = DatabaseSurat.objects.values('klasifikasi').distinct()
+    kelompok = DatabaseSurat.objects.values('kelompok').distinct()
+
+
+    # username = request.user
+
+    # print(username)
 
     context = {
         'page_title'     : 'Olah Data',
-        'datasemuasurat' :  datasemuasurat
+        'datasemuasurat' : datasemuasurat,
+        'surat'          : surat,
+        'klasifikasi'    : klasifikasi,
+        'kelompok'       : kelompok,
     }
     return render(request,'pages/olah_data.html', context)
 
-def edit_olah_data(request, edit_olah_data):
-    edit_olah = get_object_or_404(DatabaseSurat, pk = edit_olah_data)
+def edit_olah_data(request, id_edit_olah_data):
+    id_username = request.user
+    edit_olah = get_object_or_404(DatabaseSurat, pk = id_edit_olah_data)
 
     if request.method == 'POST':
         id_user = request.user.pk
-        username = request.
-        nama_surat = request.POST.get('nama_surat')
-    
+        username = id_username
+        surat = request.POST.get('nama_surat')
+        klasifikasi = request.POST.get('klasifikasi')
+        kelompok = request.POST.get('kelompok')
+        tgl = request.POST.get('tanggal')
+        no_surat = request.POST.get('no_surat')
+        kepada = request.POST.get('kepada')
+        prihal = request.POST.get('prihal')
+        upload = edit_olah.upload_file.name
+        today = edit_olah.today
+ 
         edit_olah = DatabaseSurat(
-            id = id_edit_setting,
-            id_user   = user_name, 
-            nama_surat = nama_surat,
+            id          = id_edit_olah_data,
+            id_user     = id_user,  
+            username    = username,
+            surat       = surat,
+            klasifikasi = klasifikasi,
+            kelompok    = kelompok,
+            tgl         = tgl,
+            no_surat    = no_surat,
+            kepada      = kepada,
+            perihal     = prihal,
+            upload_file = upload,
+            today       = today,
         )
-        edit_surat.save()
+        edit_olah.save()
+        edit_olah.clean_fields()
+
+        return redirect('olah_data')
    
     return render(request,'pages/olah_data.html')
