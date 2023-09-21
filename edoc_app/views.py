@@ -7,7 +7,7 @@ from datetime import date
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 
-
+@csrf_protect
 @login_required(login_url="/accounts/login/")
 def home(request):
     id_username = request.user.pk
@@ -86,7 +86,7 @@ def tambah_data(request):
    
     return render(request,'pages/tambah_data.html', context)
 
-        
+@csrf_protect        
 @login_required(login_url="/accounts/login/")
 def setting(request):
     user_name = request.user.pk
@@ -106,6 +106,7 @@ def setting(request):
     return render(request,'pages/setting.html', context)
 
 @csrf_protect
+@login_required(login_url="/accounts/login/")
 def setting_surat(request):
 
     if request.method == 'POST':
@@ -123,6 +124,7 @@ def setting_surat(request):
         return render(request,'pages/setting.html')
     
 @csrf_protect
+@login_required(login_url="/accounts/login/")
 def edit_setting_surat(request, id_edit_setting):
     edit_surat = get_object_or_404(NamaSurat, pk = id_edit_setting)
 
@@ -143,6 +145,7 @@ def edit_setting_surat(request, id_edit_setting):
     return render(request,'pages/setting.html')
 
 @csrf_protect
+@login_required(login_url="/accounts/login/")
 def delete_setting_surat(request, id_delete_setting):
     delete_surat = get_object_or_404(NamaSurat, pk = id_delete_setting)
 
@@ -154,6 +157,7 @@ def delete_setting_surat(request, id_delete_setting):
 
 
 @csrf_protect
+@login_required(login_url="/accounts/login/")
 def setting_klasifikasi(request):
     if request.method == 'POST':
         user_name = request.user.pk
@@ -171,6 +175,7 @@ def setting_klasifikasi(request):
         return render(request,'pages/setting.html')
     
 @csrf_protect
+@login_required(login_url="/accounts/login/")
 def edit_setting_klasifikasi(request, id_edit_klasifikasi):
     edit_klasifikasi = get_object_or_404(KlasifikasiSurat, pk = id_edit_klasifikasi)
 
@@ -191,6 +196,7 @@ def edit_setting_klasifikasi(request, id_edit_klasifikasi):
     return render(request,'pages/setting.html')
 
 @csrf_protect
+@login_required(login_url="/accounts/login/")
 def delete_setting_klasifikasi(request, id_delete_klasifikasi):
     delete_klasifikasi = get_object_or_404(KlasifikasiSurat, pk = id_delete_klasifikasi)
 
@@ -201,6 +207,7 @@ def delete_setting_klasifikasi(request, id_delete_klasifikasi):
     return render(request,'pages/setting.html')
 
 @csrf_protect
+@login_required(login_url="/accounts/login/")
 def setting_kelompok(request):
     if request.method == 'POST':
         user_name = request.user.pk
@@ -218,6 +225,7 @@ def setting_kelompok(request):
         return render(request,'pages/setting.html')
     
 @csrf_protect
+@login_required(login_url="/accounts/login/")
 def edit_setting_kelompok(request, id_setting_kelompok):
     edit_kelompok = get_object_or_404(KelompokSurat, pk = id_setting_kelompok)
 
@@ -237,6 +245,7 @@ def edit_setting_kelompok(request, id_setting_kelompok):
     return render(request,'pages/setting.html')
 
 @csrf_protect
+@login_required(login_url="/accounts/login/")
 def delete_setting_kelompok(request, id_delete_kelompok):
     delete_klasifikasi = get_object_or_404(KelompokSurat, pk = id_delete_kelompok)
 
@@ -246,7 +255,8 @@ def delete_setting_kelompok(request, id_delete_kelompok):
     
     return render(request,'pages/setting.html')
     
-
+@csrf_protect
+@login_required(login_url="/accounts/login/")
 def olah_data(request):
     id_username = request.user.pk
     datasemuasurat = DatabaseSurat.objects.filter(id_user = id_username).values()
@@ -254,10 +264,9 @@ def olah_data(request):
     klasifikasi = DatabaseSurat.objects.values('klasifikasi').distinct()
     kelompok = DatabaseSurat.objects.values('kelompok').distinct()
 
-
-    # username = request.user
-
-    # print(username)
+    # surat = NamaSurat.objects.get
+    # klasifikasi = KlasifikasiSurat.objects.values('nama_klasifikasi')
+    # kelompok = KelompokSurat.objects.values('nama_kelompok')
 
     context = {
         'page_title'     : 'Olah Data',
@@ -268,20 +277,22 @@ def olah_data(request):
     }
     return render(request,'pages/olah_data.html', context)
 
+@csrf_protect
+@login_required(login_url="/accounts/login/")
 def edit_olah_data(request, id_edit_olah_data):
     id_username = request.user
     edit_olah = get_object_or_404(DatabaseSurat, pk = id_edit_olah_data)
 
     if request.method == 'POST':
         id_user = request.user.pk
-        username = id_username
-        surat = request.POST.get('nama_surat')
+        username = str(id_username)
+        surat = request.POST.get('surat')
         klasifikasi = request.POST.get('klasifikasi')
         kelompok = request.POST.get('kelompok')
         tgl = request.POST.get('tanggal')
         no_surat = request.POST.get('no_surat')
         kepada = request.POST.get('kepada')
-        prihal = request.POST.get('prihal')
+        prihal = request.POST.get('perihal')
         upload = edit_olah.upload_file.name
         today = edit_olah.today
  
@@ -301,7 +312,50 @@ def edit_olah_data(request, id_edit_olah_data):
         )
         edit_olah.save()
         edit_olah.clean_fields()
-
         return redirect('olah_data')
    
+    return render(request,'pages/olah_data.html')
+
+@csrf_protect
+@login_required(login_url="/accounts/login/")
+def delete_olah_data(request, id_delete_olah_data):
+    id_olah_data = request.user.pk
+    id_username = request.user
+    delete_olah_data = DatabaseSurat.objects.get(pk = id_delete_olah_data).id
+    upload_file_files   = DatabaseSurat.objects.get(pk = id_delete_olah_data)
+    # hari_ini   = DatabaseSurat.objects.filter(today).values
+
+    # print(hari_ini)
+
+    if request.method == 'POST':
+        upload_file_files.upload_file.delete()
+
+        id_user = int(id_olah_data)
+        username = str(id_username)
+        surat = request.POST.get('surat')
+        klasifikasi = request.POST.get('klasifikasi')
+        kelompok = request.POST.get('kelompok')
+        tgl = request.POST.get('tanggal')
+        no_surat = request.POST.get('no_surat')
+        kepada = request.POST.get('kepada')
+        prihal = request.POST.get('perihal')
+        hari_ini =    upload_file_files.today
+       
+        edit_olah = DatabaseSurat(
+            id          = delete_olah_data,
+            id_user     = id_user,  
+            username    = username,
+            surat       = surat,
+            klasifikasi = klasifikasi,
+            kelompok    = kelompok,
+            tgl         = tgl,
+            no_surat    = no_surat,
+            kepada      = kepada,
+            perihal     = prihal,
+            # upload_file = upload_file,
+            today       = hari_ini,
+        )
+        edit_olah.delete()
+        return redirect('olah_data')
+    
     return render(request,'pages/olah_data.html')

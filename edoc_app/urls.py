@@ -9,6 +9,7 @@ urlpatterns = [
 
     path('olah_data/', views.olah_data, name='olah_data'),
     path('edit_olah_data/<int:id_edit_olah_data>', views.edit_olah_data, name='edit_olah_data'),
+    path('delete_olah_data/<int:id_delete_olah_data>', views.delete_olah_data, name='delete_olah_data'),
 
     path('setting_surat/', views.setting_surat, name='setting_surat'),
     path('edit_setting_surat/<int:id_edit_setting>/', views.edit_setting_surat, name='edit_setting_surat'),
