@@ -7,6 +7,7 @@ from datetime import date
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 
+
 @csrf_protect
 @login_required(login_url="/accounts/login/")
 def home(request):
@@ -18,7 +19,6 @@ def home(request):
         'datasemuasurat' :  datasemuasurat
     }
     
-    # print(request.user)
     return render(request,'pages/index.html', context)
 
 @csrf_protect
@@ -259,14 +259,24 @@ def delete_setting_kelompok(request, id_delete_kelompok):
 @login_required(login_url="/accounts/login/")
 def olah_data(request):
     id_username = request.user.pk
+
     datasemuasurat = DatabaseSurat.objects.filter(id_user = id_username).values()
+
     surat = DatabaseSurat.objects.values('surat').distinct()
     klasifikasi = DatabaseSurat.objects.values('klasifikasi').distinct()
     kelompok = DatabaseSurat.objects.values('kelompok').distinct()
 
-    # surat = NamaSurat.objects.get
+    # surat = NamaSurat.objects.filter()
     # klasifikasi = KlasifikasiSurat.objects.values('nama_klasifikasi')
     # kelompok = KelompokSurat.objects.values('nama_kelompok')
+
+    # surat = NamaSurat.objects.filter(id_user = id_username).values_list("nama_surat" , flat=True )
+    # klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
+    # kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
+
+
+    # print(surat)
+   
 
     context = {
         'page_title'     : 'Olah Data',
@@ -359,3 +369,39 @@ def delete_olah_data(request, id_delete_olah_data):
         return redirect('olah_data')
     
     return render(request,'pages/olah_data.html')
+
+
+def hari_ini(request):
+
+    context = {
+        'page_title' : 'hari ini'
+    }
+
+    return render(request , 'pages/laporan_hari_ini.html', context)
+
+def laporan_harian(request):
+
+    context = {
+        'page_title' : 'Laporan Harian'
+    }
+
+    return render(request , 'pages/laporan_harian.html', context)
+
+
+
+
+def laporan_bulanan(request):
+
+    context = {
+        'page_title' : 'Laporan Bulanan'
+    }
+
+    return render(request , 'pages/laporan_bulanan.html', context)
+
+def laporan_tahunan(request):
+
+    context = {
+        'page_title' : 'Laporan Tahunan'
+    }
+
+    return render(request , 'pages/laporan_tahunan.html', context)

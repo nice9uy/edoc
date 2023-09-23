@@ -10,19 +10,22 @@
           width="50"
           height="50"
         />
-        <span>e-doc Baranahan</span>
+        <span>e-doc Baranahan </span>
       </a>
       <nav class="navbar navbar-expand-sm ">
         <div class="container-fluid ">
           <ul class="navbar-nav gap-4">
             <li class="nav-item">
-              <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" aria-current="page" href="{% url 'home' %}" >Home</a>
+              <a class="fa-solid fa-arrow-left" href="{% url 'home' %}" ></a>
             </li>
             <li class="nav-item">
-              <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'olah_data' %}">Olah Data</a>
+              <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'hari_ini' %}">Hari Ini</a>
             </li>
             <li class="nav-item">
-              <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'setting' %}">Settings</a>
+                <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'olah_data' %}">Olah Data</a>
+              </li>
+              <li class="nav-item">
+                <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'setting' %}">Settings</a>
             </li>
           </ul>
         </div>

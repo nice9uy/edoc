@@ -4,8 +4,10 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home' ),
     path('tambah_data/', views.tambah_data, name='tambah_data' ),
-    # path('edit_data/', views.edit, name='edit'),
+    # path('setting_data/', views.setting_data, name='setting_data'),
     path('setting/', views.setting, name='setting'),
+
+    path('hari_ini/', views.hari_ini, name='hari_ini'),
 
     path('olah_data/', views.olah_data, name='olah_data'),
     path('edit_olah_data/<int:id_edit_olah_data>', views.edit_olah_data, name='edit_olah_data'),
@@ -22,6 +24,10 @@ urlpatterns = [
     path('setting_kelompok/', views.setting_kelompok, name='setting_kelompok'),
     path('edit_setting_kelompok/ <int:id_setting_kelompok>/', views.edit_setting_kelompok, name='edit_setting_kelompok'),
     path('delete_setting_kelompok/<int:id_delete_kelompok>/', views.delete_setting_kelompok, name='delete_setting_kelompok'),
+
+    path('laporan_harian/', views.laporan_harian, name='laporan_harian'),
+    path('laporan_bulanan/', views.laporan_bulanan, name='laporan_bulanan'),
+    path('laporan_tahunan/', views.laporan_tahunan, name='laporan_tahunan'),
 
 
 
