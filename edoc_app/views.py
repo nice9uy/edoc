@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_protect
 from datetime import date
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 
 
 @csrf_protect
@@ -29,7 +30,7 @@ def tambah_data(request):
 
     hari_ini = date.today()
 
-    surat_id = NamaSurat.objects.filter(id_user = id_username).values_list("nama_surat" , flat=True)
+    # surat_id = NamaSurat.objects.filter(id_user = id_username).values_list("nama_surat" , flat=True)
     klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
     kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
    
@@ -78,7 +79,7 @@ def tambah_data(request):
         
     context = {
         'page_title' : 'Tambah Data',
-        'surat'      : surat_id,
+        # 'surat'      : surat_id,
         'klasifikasi' : klasifikasi,
         'kelompok' : kelompok,
         
@@ -260,7 +261,11 @@ def delete_setting_kelompok(request, id_delete_kelompok):
 def olah_data(request):
     id_username = request.user.pk
 
+    # hari_ini = date.today()
+    # xxx = DatabaseSurat.objects.filter(Q(id_user = id_username) | Q(today = hari_ini ) ) .values()
+
     datasemuasurat = DatabaseSurat.objects.filter(id_user = id_username).values()
+
 
     surat = DatabaseSurat.objects.values('surat').distinct()
     klasifikasi = DatabaseSurat.objects.values('klasifikasi').distinct()
@@ -275,7 +280,7 @@ def olah_data(request):
     # kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
 
 
-    # print(surat)
+    # print(xxx)
    
 
     context = {
@@ -372,12 +377,19 @@ def delete_olah_data(request, id_delete_olah_data):
 
 
 def hari_ini(request):
+    id_username = request.user.pk
+
+    hari_ini = date.today()
+    query_hari_ini = DatabaseSurat.objects.filter(id_user = id_username , today = hari_ini ).values()  
+
+    print(query_hari_ini)
 
     context = {
-        'page_title' : 'hari ini'
+        'page_title' : 'hari ini',
+        'datasemuasurat'   : query_hari_ini
     }
 
-    return render(request , 'pages/laporan_hari_ini.html', context)
+    return render(request , 'pages/hari_ini.html', context)
 
 def laporan_harian(request):
 

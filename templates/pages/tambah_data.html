@@ -16,9 +16,12 @@
   
           <select class="form-select" required aria-label="Default select example" name="surat">
             <option value="">SURAT</option>
-            {% for v in surat %}
+            {% comment %} {% for v in surat %}
             <option value="{{ v }}">{{v}}</option>
-            {% endfor %}
+            {% endfor %} {% endcomment %}
+            <option value="Masuk">Masuk</option>
+            <option value="Keluar">Keluar</option>
+
           </select>
 
             

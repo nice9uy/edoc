@@ -1,6 +1,6 @@
 {% load static %}
 
-<!-- modal untuk edit surat -->
+{% comment %} <!-- modal untuk edit surat -->
 {% for data in surat %} 
     <div class="modal fade" id="button_edit_surat{{ data.id }}" tabindex="-1" aria-labelledby="edit_surat" aria-hidden="true">
       <div class="modal-dialog">
@@ -49,7 +49,7 @@
         </div>
       </div>
     </div>
-{% endfor %}
+{% endfor %}  {% endcomment %}
 
 
 <!-- modal untuk edit klasifikasi -->
