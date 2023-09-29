@@ -4,12 +4,60 @@
 
 {% block laporan_harian %}
 
+
+{% comment %} <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+    {% comment %} <type="text/javascript" src="{% static 'js/chart.min.js' %}"></script>  {% endcomment %}
+
+
+<script type="text/javascript" src="{% static 'js/chart.min.js' %}"></script>
+
 {%include 'partials/header_laporan.html' %}
 
 <h2>ini laporan harian</h2>
+bfsBb
 
 
 
+<canvas id="surat_masuk" style="width:100%;max-width:500px;"></canvas>
 
+<script>
 
+    const xValues = ["Italy", "France", "Spain", "USA", "Argentina", "indo"];
+    const yValues = [550, 49, 44, 24, 15, 45];
+    const barColors = ["red", "green","blue","orange","brown", "yellow"];
+
+    const ctx = document.getElementById("surat_masuk").getContext("2d"); 
+    var myChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: xValues, yValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues, xValues,
+            }]
+        },
+        options: { 
+            legend: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        fontColor: "white",
+                        fontSize: 14,
+                        beginAtZero: true
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontColor: "white",
+                        fontSize: 14,
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
+    
 {% endblock laporan_harian %}

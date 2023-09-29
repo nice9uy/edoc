@@ -267,26 +267,26 @@ def olah_data(request):
     datasemuasurat = DatabaseSurat.objects.filter(id_user = id_username).values()
 
 
-    surat = DatabaseSurat.objects.values('surat').distinct()
-    klasifikasi = DatabaseSurat.objects.values('klasifikasi').distinct()
-    kelompok = DatabaseSurat.objects.values('kelompok').distinct()
+    # surat = DatabaseSurat.objects.values('surat').distinct()
+    # klasifikasi = DatabaseSurat.objects.values('klasifikasi').distinct()
+    # kelompok = DatabaseSurat.objects.values('kelompok').distinct()
 
     # surat = NamaSurat.objects.filter()
     # klasifikasi = KlasifikasiSurat.objects.values('nama_klasifikasi')
     # kelompok = KelompokSurat.objects.values('nama_kelompok')
 
     # surat = NamaSurat.objects.filter(id_user = id_username).values_list("nama_surat" , flat=True )
-    # klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
-    # kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
+    klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
+    kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
 
 
-    # print(xxx)
+    # print(klasifikasi)
    
 
     context = {
         'page_title'     : 'Olah Data',
         'datasemuasurat' : datasemuasurat,
-        'surat'          : surat,
+        # 'surat'          : surat,
         'klasifikasi'    : klasifikasi,
         'kelompok'       : kelompok,
     }
@@ -382,16 +382,26 @@ def hari_ini(request):
     hari_ini = date.today()
     query_hari_ini = DatabaseSurat.objects.filter(id_user = id_username , today = hari_ini ).values()  
 
-    print(query_hari_ini)
+    # surat = NamaSurat.objects.filter(id_user = id_username).values_list("nama_surat" , flat=True )
+    klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
+    kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
+
+
+    # print(query_hari_ini)
 
     context = {
-        'page_title' : 'hari ini',
-        'datasemuasurat'   : query_hari_ini
+        'page_title' : 'Hari Ini',
+        'datasemuasurat' : query_hari_ini,
+        # 'surat'          : surat,
+        'klasifikasi'    : klasifikasi,
+        'kelompok'       : kelompok,
     }
 
     return render(request , 'pages/hari_ini.html', context)
 
 def laporan_harian(request):
+
+    
 
     context = {
         'page_title' : 'Laporan Harian'

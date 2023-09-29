@@ -13,25 +13,25 @@
           <form action ="{% url 'edit_olah_data' data.id %}" method="POST" class="was-validated">
             {% csrf_token %}
             <div class="modal-body">
-              <div>
+              <div> 
                   <div class="d-flex gap-4">
                        <select class="form-select" id="surat" required name="surat">
                             <option value="">SURAT</option>
                             <option value="Masuk" >Masuk</option>
                             <option value="Keluar">Keluar</option>
-                        </select>
+                        </select>  
 
                         <select class="form-select" id="klasifikasi" required name="klasifikasi">
                             <option value="">KLASIFIKASI</option>
                             {% for dataklasifikasi in klasifikasi %}
-                                <option value="{{ dataklasifikasi.klasifikasi }}" >{{ dataklasifikasi.klasifikasi }}</option>
+                                <option value="{{ dataklasifikasi }}"  >{{ dataklasifikasi }} </option>
                             {% endfor %}
                         </select>
 
                         <select class="form-select" id="kelompok" required name="kelompok">
                             <option value="">KELOMPOK</option>
                             {% for datakelompok in kelompok %}
-                                <option value="{{ datakelompok.kelompok }}" >{{ datakelompok.kelompok }}</option>
+                                <option value="{{ datakelompok }}" >{{ datakelompok }}</option>
                             {% endfor %}
                         </select>
 
