@@ -7,17 +7,22 @@ from datetime import date
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.db.models import Q
+from django.contrib.auth.models import User
+import datetime
+from datetime import datetime
 
 
 @csrf_protect
 @login_required(login_url="/accounts/login/")
 def home(request):
     id_username = request.user.pk
+    user = request.user
     datasemuasurat = DatabaseSurat.objects.filter(id_user = id_username).values()
 
     context = {
         'page_title'     : 'Home',
-        'datasemuasurat' :  datasemuasurat
+        'datasemuasurat' :  datasemuasurat,
+        'user'           :  user
     }
     
     return render(request,'pages/index.html', context)
@@ -71,7 +76,6 @@ def tambah_data(request):
     else:
         if filename_list_count == 3:
             upload_data.save()
-            print("vkhsbvkshbvskbhskbf")
             return redirect('home')
         else:
             messages.warning(request,'bzdbdbzdb')
@@ -79,7 +83,6 @@ def tambah_data(request):
         
     context = {
         'page_title' : 'Tambah Data',
-        # 'surat'      : surat_id,
         'klasifikasi' : klasifikasi,
         'kelompok' : kelompok,
         
@@ -94,8 +97,6 @@ def setting(request):
     surat = NamaSurat.objects.filter(id_user = user_name).values()
     klasifikasi = KlasifikasiSurat.objects.filter(id_user = user_name).values()
     kelompok = KelompokSurat.objects.filter(id_user = user_name).values()
-
-    # print(surat)
 
     context = {
         'page_title' : 'Setting',
@@ -260,33 +261,13 @@ def delete_setting_kelompok(request, id_delete_kelompok):
 @login_required(login_url="/accounts/login/")
 def olah_data(request):
     id_username = request.user.pk
-
-    # hari_ini = date.today()
-    # xxx = DatabaseSurat.objects.filter(Q(id_user = id_username) | Q(today = hari_ini ) ) .values()
-
     datasemuasurat = DatabaseSurat.objects.filter(id_user = id_username).values()
-
-
-    # surat = DatabaseSurat.objects.values('surat').distinct()
-    # klasifikasi = DatabaseSurat.objects.values('klasifikasi').distinct()
-    # kelompok = DatabaseSurat.objects.values('kelompok').distinct()
-
-    # surat = NamaSurat.objects.filter()
-    # klasifikasi = KlasifikasiSurat.objects.values('nama_klasifikasi')
-    # kelompok = KelompokSurat.objects.values('nama_kelompok')
-
-    # surat = NamaSurat.objects.filter(id_user = id_username).values_list("nama_surat" , flat=True )
     klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
     kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
-
-
-    # print(klasifikasi)
-   
 
     context = {
         'page_title'     : 'Olah Data',
         'datasemuasurat' : datasemuasurat,
-        # 'surat'          : surat,
         'klasifikasi'    : klasifikasi,
         'kelompok'       : kelompok,
     }
@@ -400,19 +381,44 @@ def hari_ini(request):
     return render(request , 'pages/hari_ini.html', context)
 
 def laporan_harian(request):
-
+    hari_ini = date.today()
     
+    label = []
+    y_masuk = []
+    y_keluar = []
+    jumlah_surat = []
 
+    all_users = list(User.objects.values_list('username', flat=True))
+
+    for i in all_users:
+        label.append(i)
+        surat_masuk = DatabaseSurat.objects.filter(username = i, surat = 'Masuk', today = hari_ini ).count()
+        y_masuk.append(surat_masuk)
+        surat_keluar = DatabaseSurat.objects.filter(username = i, surat = 'Keluar' , today = hari_ini ).count()
+        y_keluar.append(surat_keluar)
+
+        temp_jumlah = surat_masuk + surat_keluar
+        jumlah_surat.append(temp_jumlah)
+
+    list_jumlah = zip(label , jumlah_surat)
+    surat = dict(list_jumlah)
+    
     context = {
-        'page_title' : 'Laporan Harian'
+        'page_title' : 'Laporan Harian',
+        'label' : label,
+        'y_masuk' : y_masuk,
+        'y_keluar' : y_keluar,
+        'jumlah' :  surat,
+        'hari_ini' : hari_ini
     }
 
     return render(request , 'pages/laporan_harian.html', context)
 
-
-
-
 def laporan_bulanan(request):
+    month = int(datetime.now().month)
+    
+    # surat_masuk = DatabaseSurat.objects.filter(username = 'nice9uy', surat = 'Masuk', today = month )
+    # print(surat_masuk)
 
     context = {
         'page_title' : 'Laporan Bulanan'

@@ -12,9 +12,11 @@
         />
         <span>e-doc Baranahan </span>
       </a>
+      
       <nav class="navbar navbar-expand-sm ">
         <div class="container-fluid ">
           <ul class="navbar-nav gap-4">
+            <span >Selamat Datang ,  {{ user | upper}}</span>
             <li class="nav-item">
               <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" aria-current="page" href="{% url 'home' %}" >Home</a>
             </li>
@@ -25,7 +27,7 @@
               <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'laporan_harian' %}">Laporan</a>
             </li>
             <li class="nav-item">
-              <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'olah_data'%}">Setting Data</a>
+              <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'olah_data'%}">Olah Data</a>
             </li>
             <li class="nav-item">
               <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'logout' %}">Logout</a>
