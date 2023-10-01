@@ -6,8 +6,99 @@
 
 {%include 'partials/header_laporan.html' %}
 
-<h2>ini laporan Bulanan</h2>
 
+<div class="container-fluid mt-5">
+    <h3 class="text-center">LAPORAN BULANAN</h3>
+    <div class="">
+        <div class="d-flex mt-5 align-content-center ">
+            <canvas id="laporan_bulanan" style="width:100%;max-width:1000px; max-height: 1000px;"></canvas>
+
+            <div class="d-flex flex-column">
+                <div class="d-flex flex-row gap-3">
+                    <select class="form-select" id="bulan" required name="bulan">
+                        <option value="">BULAN</option>
+                        <option value="Masuk" >JANUARI</option>
+                        <option value="Keluar">FEBRUARI</option>
+                        <option value="Keluar">MARET</option>
+                        <option value="Keluar">APRIL</option>
+                        <option value="Keluar">MEI</option>
+                        <option value="Keluar">JUNI</option>
+                        <option value="Keluar">JULI</option>
+                        <option value="Keluar">AGUSTUS</option>
+                        <option value="Keluar">SEPTEMBER</option>
+                        <option value="Keluar">OKTOBER</option>
+                        <option value="Keluar">NOPEMBER</option>
+                        <option value="Keluar">DESEMBER</option>
+
+                    </select>  
+                    <select class="form-select" id="tahun" required name="tahun">
+                        <option value="">TAHUN</option>
+                        <option value="Masuk" >Masuk</option>
+                        <option value="Keluar">Keluar</option>
+                    </select>  
+                </div>
+                <button class="btn btn-primary mt-3">Proses</button>
+                
+                <div class="justify-content-around mt-3" >
+                    <h5 >Total Laporan Bulan {{ bulan_ini }} :</h5> <br>
+                </div>
+                    {% for key, val  in jumlah.items  %}
+                        <h5>{{ key }} = {{  val }} </h5>  
+                    {% empty %}
+                        <h5>Tidak ada data masuk Bulan ini</h5>
+                    {% endfor %}  
+            </div>
+        </div>
+    </div>
+</div>
+ 
+
+<script>
+    const ctx = document.getElementById("laporan_bulanan").getContext("2d"); 
+    var myChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: {{ label | safe }},
+            datasets: [
+            {
+                label: 'Surat Masuk',
+                data   :  {{ y_masuk | safe }},
+                backgroundColor: 'red',
+            },
+            {
+                label: 'Surat Keluar',
+                data   :  {{ y_keluar | safe }},
+                backgroundColor: 'blue',
+            }]
+        },
+        options: { 
+            responsive: true,
+            legend : {
+                display : true,
+                labels : {
+                    fontColor : "white",
+                },
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        fontColor: "white",
+                        fontSize: 14,
+                        beginAtZero: true,
+                        stepSize : 1,
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontColor: "white",
+                        fontSize: 14,
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
 
 
 

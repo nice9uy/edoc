@@ -16,7 +16,7 @@
       <nav class="navbar navbar-expand-sm ">
         <div class="container-fluid ">
           <ul class="navbar-nav gap-4">
-            <span >Selamat Datang ,  {{ user | upper}}</span>
+            <span >Selamat Datang ,  {{ user | capfirst }}</span>
             <li class="nav-item">
               <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" aria-current="page" href="{% url 'home' %}" >Home</a>
             </li>

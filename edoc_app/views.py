@@ -409,19 +409,59 @@ def laporan_harian(request):
         'y_masuk' : y_masuk,
         'y_keluar' : y_keluar,
         'jumlah' :  surat,
-        'hari_ini' : hari_ini
+        'hari_ini' : hari_ini,
     }
 
     return render(request , 'pages/laporan_harian.html', context)
 
 def laporan_bulanan(request):
-    month = int(datetime.now().month)
-    
-    # surat_masuk = DatabaseSurat.objects.filter(username = 'nice9uy', surat = 'Masuk', today = month )
-    # print(surat_masuk)
+    now = datetime.now()
+    month = now.strftime("%m")
+    year = now.strftime("%Y")
 
+    bulan_ini = now.strftime("%B-%Y")
+
+    label = []
+    y_masuk = []
+    y_keluar = []
+    jumlah_surat = []
+    tahun = []
+    
+    all_users = list(User.objects.values_list('username', flat=True))
+
+    
+    # bulan = DatabaseSurat.objects.filter(username = i , surat = 'Masuk', today__month = month ).count()
+
+    for i in all_users:
+        label.append(i)
+        surat_masuk = DatabaseSurat.objects.filter(username = i , surat = 'Masuk', today__month = month ).count()
+        y_masuk.append(surat_masuk)
+        surat_keluar = DatabaseSurat.objects.filter(username = i, surat = 'Keluar' ,today__month = month ).count()
+        y_keluar.append(surat_keluar)
+
+        temp_jumlah = surat_masuk + surat_keluar
+        jumlah_surat.append(temp_jumlah)
+
+   
+    # thn = DatabaseSurat.objects.values_list('today', flat=True).datetimes('%Y')
+
+
+
+    # for i in thn:
+    #     tahun.append(i)
+
+    # print(thn)
+
+    list_jumlah = zip(label , jumlah_surat)
+    surat = dict(list_jumlah)
+    
     context = {
-        'page_title' : 'Laporan Bulanan'
+        'page_title' : 'Laporan Bulanan',
+        'label' : label,
+        'y_masuk' : y_masuk,
+        'y_keluar' : y_keluar,
+        'jumlah' :  surat,
+        'bulan_ini' : bulan_ini
     }
 
     return render(request , 'pages/laporan_bulanan.html', context)
