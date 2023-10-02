@@ -13,14 +13,17 @@
             <canvas id="laporan_harian" style="width:100%;max-width:1000px; max-height: 1000px;"></canvas>
 
             <div class="d-flex flex-column">
-                <div class="justify-content-around">
-                    <h5 >Total Laporan Tanggal {{ hari_ini  }} :</h5> <br>
+                <div class="input-group">
+                    <input type="date" id="" name="" class="form-control" >
+                    <button class="btn btn-primary " type="button">Button</button>
                 </div>
+                <div class="mt-5">
                     {% for key, val  in jumlah.items  %}
                         <h5>{{ key }} = {{  val }} </h5>  
                     {% empty %}
                         <h5>Tidak ada data masuk hari ini</h5>
                     {% endfor %}
+                </div>
                     
             </div>
             

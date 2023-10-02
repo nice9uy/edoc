@@ -17,18 +17,18 @@
                 <div class="d-flex flex-row gap-3">
                     <select class="form-select" id="bulan" required name="bulan">
                         <option value="">BULAN</option>
-                        <option value="Masuk" >JANUARI</option>
-                        <option value="Keluar">FEBRUARI</option>
-                        <option value="Keluar">MARET</option>
-                        <option value="Keluar">APRIL</option>
-                        <option value="Keluar">MEI</option>
-                        <option value="Keluar">JUNI</option>
-                        <option value="Keluar">JULI</option>
-                        <option value="Keluar">AGUSTUS</option>
-                        <option value="Keluar">SEPTEMBER</option>
-                        <option value="Keluar">OKTOBER</option>
-                        <option value="Keluar">NOPEMBER</option>
-                        <option value="Keluar">DESEMBER</option>
+                        <option value="1" >Januari</option>
+                        <option value="2">Februari</option>
+                        <option value="3">Maret</option>
+                        <option value="4">April</option>
+                        <option value="5">Mei</option>
+                        <option value="6">Juni</option>
+                        <option value="7">Juli</option>
+                        <option value="8">Agustus</option>
+                        <option value="9">September</option>
+                        <option value="10">Oktober</option>
+                        <option value="11">Nopember</option>
+                        <option value="12">Desember</option>
 
                     </select>  
                     <select class="form-select" id="tahun" required name="tahun">
@@ -39,14 +39,13 @@
                 </div>
                 <button class="btn btn-primary mt-3">Proses</button>
                 
-                <div class="justify-content-around mt-3" >
-                    <h5 >Total Laporan Bulan {{ bulan_ini }} :</h5> <br>
-                </div>
+                <div class="mt-5">
                     {% for key, val  in jumlah.items  %}
                         <h5>{{ key }} = {{  val }} </h5>  
                     {% empty %}
                         <h5>Tidak ada data masuk Bulan ini</h5>
                     {% endfor %}  
+                </div>
             </div>
         </div>
     </div>
