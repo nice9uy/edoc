@@ -33,6 +33,9 @@ def tambah_data(request):
     id_username = request.user.pk
     username = request.user
 
+    now = datetime.now()
+    year = now.strftime("%Y")
+
     hari_ini = date.today()
 
     # surat_id = NamaSurat.objects.filter(id_user = id_username).values_list("nama_surat" , flat=True)
@@ -68,6 +71,7 @@ def tambah_data(request):
             perihal     = prihal_surat,
             upload_file = files_upload,
             today       = hari_ini,
+            tahun       = year,
         )
         
     except Exception:
@@ -278,6 +282,8 @@ def olah_data(request):
 def edit_olah_data(request, id_edit_olah_data):
     id_username = request.user
     edit_olah = get_object_or_404(DatabaseSurat, pk = id_edit_olah_data)
+    now = datetime.now()
+    year = now.strftime("%Y")
 
     if request.method == 'POST':
         id_user = request.user.pk
@@ -305,6 +311,7 @@ def edit_olah_data(request, id_edit_olah_data):
             perihal     = prihal,
             upload_file = upload,
             today       = today,
+            tahun       = year,
         )
         edit_olah.save()
         edit_olah.clean_fields()
@@ -319,9 +326,9 @@ def delete_olah_data(request, id_delete_olah_data):
     id_username = request.user
     delete_olah_data = DatabaseSurat.objects.get(pk = id_delete_olah_data).id
     upload_file_files   = DatabaseSurat.objects.get(pk = id_delete_olah_data)
-    # hari_ini   = DatabaseSurat.objects.filter(today).values
-
-    # print(hari_ini)
+    
+    now = datetime.now()
+    year = now.strftime("%Y")
 
     if request.method == 'POST':
         upload_file_files.upload_file.delete()
@@ -350,6 +357,7 @@ def delete_olah_data(request, id_delete_olah_data):
             perihal     = prihal,
             # upload_file = upload_file,
             today       = hari_ini,
+            tahun       = year,
         )
         edit_olah.delete()
         return redirect('olah_data')
@@ -417,21 +425,17 @@ def laporan_harian(request):
 def laporan_bulanan(request):
     now = datetime.now()
     month = now.strftime("%m")
-    year = now.strftime("%Y")
-
-    bulan_ini = now.strftime("%B-%Y")
 
     label = []
     y_masuk = []
     y_keluar = []
     jumlah_surat = []
-    tahun = []
     
-    all_users = list(User.objects.values_list('username', flat=True))
+    all_users = list(User.objects.all().values_list('username', flat=True ))
+
+    data_tahun = list(DatabaseSurat.objects.all().values_list('tahun', flat=True).distinct())
 
     
-    # bulan = DatabaseSurat.objects.filter(username = i , surat = 'Masuk', today__month = month ).count()
-
     for i in all_users:
         label.append(i)
         surat_masuk = DatabaseSurat.objects.filter(username = i , surat = 'Masuk', today__month = month ).count()
@@ -439,18 +443,9 @@ def laporan_bulanan(request):
         surat_keluar = DatabaseSurat.objects.filter(username = i, surat = 'Keluar' ,today__month = month ).count()
         y_keluar.append(surat_keluar)
 
+
         temp_jumlah = surat_masuk + surat_keluar
         jumlah_surat.append(temp_jumlah)
-
-   
-    # thn = DatabaseSurat.objects.values_list('today', flat=True).datetimes('%Y')
-
-
-
-    # for i in thn:
-    #     tahun.append(i)
-
-    # print(thn)
 
     list_jumlah = zip(label , jumlah_surat)
     surat = dict(list_jumlah)
@@ -461,7 +456,7 @@ def laporan_bulanan(request):
         'y_masuk' : y_masuk,
         'y_keluar' : y_keluar,
         'jumlah' :  surat,
-        'bulan_ini' : bulan_ini
+        'tahun_data' : data_tahun
     }
 
     return render(request , 'pages/laporan_bulanan.html', context)

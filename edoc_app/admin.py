@@ -9,7 +9,7 @@ from .models import NamaSurat
 class ListDatabaseSurat(admin.ModelAdmin):
     list_display = ('id_user','username', 'surat', 'klasifikasi',
                     'kelompok','tgl','no_surat','kepada',
-                    'perihal','upload_file','today',
+                    'perihal','upload_file','today', 'tahun'
                     )
 class ListNamaSurat(admin.ModelAdmin):
     list_display = ('id_user','id' , 'nama_surat')

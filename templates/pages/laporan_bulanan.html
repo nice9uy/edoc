@@ -33,8 +33,11 @@
                     </select>  
                     <select class="form-select" id="tahun" required name="tahun">
                         <option value="">TAHUN</option>
-                        <option value="Masuk" >Masuk</option>
-                        <option value="Keluar">Keluar</option>
+                        {% for thn in tahun_data %}
+                        
+                            <option value="{{ thn }}" >{{ thn  }}</option>
+                        
+                        {% endfor %}
                     </select>  
                 </div>
                 <button class="btn btn-primary mt-3">Proses</button>

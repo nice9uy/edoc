@@ -18,6 +18,8 @@ class DatabaseSurat(models.Model):
     perihal = models.CharField(max_length=200)
     upload_file = models.FileField(upload_to= user_folder, null=False, blank=False)
     today = models.DateField()
+    tahun = models.CharField(max_length=4)
+    
 
     class Meta:
         db_table = "DatabaseSurat"
