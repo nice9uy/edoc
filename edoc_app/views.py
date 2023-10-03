@@ -10,6 +10,7 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 import datetime
 from datetime import datetime
+from django.utils.dateparse import parse_date
 
 
 @csrf_protect
@@ -389,27 +390,60 @@ def hari_ini(request):
     return render(request , 'pages/hari_ini.html', context)
 
 def laporan_harian(request):
+    all_users = list(User.objects.values_list('username', flat=True))
     hari_ini = date.today()
     
     label = []
     y_masuk = []
     y_keluar = []
     jumlah_surat = []
+    harian_temp = []
+    xx = []
 
-    all_users = list(User.objects.values_list('username', flat=True))
+    # x = hari
+    
+    try : 
+        if request.method == 'POST':
+            harian = request.POST.get('lapor_per_hari')
+            hari = parse_date(harian)
+            harian_temp.append(hari)
 
-    for i in all_users:
-        label.append(i)
-        surat_masuk = DatabaseSurat.objects.filter(username = i, surat = 'Masuk', today = hari_ini ).count()
-        y_masuk.append(surat_masuk)
-        surat_keluar = DatabaseSurat.objects.filter(username = i, surat = 'Keluar' , today = hari_ini ).count()
-        y_keluar.append(surat_keluar)
+            for i in all_users:
+                label.append(i)
+                surat_masuk = DatabaseSurat.objects.filter(username = i, surat = 'Masuk', today =  hari ).count()
+                y_masuk.append(surat_masuk)
+                surat_keluar = DatabaseSurat.objects.filter(username = i, surat = 'Keluar' , today = hari ).count()
+                y_keluar.append(surat_keluar)
 
-        temp_jumlah = surat_masuk + surat_keluar
-        jumlah_surat.append(temp_jumlah)
+                temp_jumlah = surat_masuk + surat_keluar
+                jumlah_surat.append(temp_jumlah)
+            
+        else:
+            x = 1
+            xx.append(x)
+        
+            for i in all_users:
+                label.append(i)
+                surat_masuk = DatabaseSurat.objects.filter(username = i, surat = 'Masuk', today =  hari_ini ).count()
+                y_masuk.append(surat_masuk)
+                surat_keluar = DatabaseSurat.objects.filter(username = i, surat = 'Keluar' , today = hari_ini ).count()
+                y_keluar.append(surat_keluar)
+
+                temp_jumlah = surat_masuk + surat_keluar
+                jumlah_surat.append(temp_jumlah)
+    except:
+        pass
+       
 
     list_jumlah = zip(label , jumlah_surat)
     surat = dict(list_jumlah)
+
+    # y = int(xx)
+
+    # print(hari_ini)
+
+    # print(y)
+
     
     context = {
         'page_title' : 'Laporan Harian',
@@ -418,6 +452,8 @@ def laporan_harian(request):
         'y_keluar' : y_keluar,
         'jumlah' :  surat,
         'hari_ini' : hari_ini,
+        'harian'  : harian_temp,
+        'xx'      : xx
     }
 
     return render(request , 'pages/laporan_harian.html', context)
