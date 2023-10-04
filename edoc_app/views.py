@@ -431,6 +431,11 @@ def laporan_harian(request):
 
     list_jumlah = zip(label , jumlah_surat)
     surat = dict(list_jumlah)
+    surat_tersedia = sum(y_masuk) + sum(y_keluar)
+
+
+    print(harian_temp)
+
     context = {
         'page_title' : 'Laporan Harian',
         'label' : label,
@@ -439,6 +444,7 @@ def laporan_harian(request):
         'jumlah' :  surat,
         'hari_ini' : hari_ini,
         'harian'  : harian_temp,
+        'tersedia' : surat_tersedia
     }
 
     return render(request , 'pages/laporan_harian.html', context)
@@ -453,39 +459,57 @@ def laporan_bulanan(request):
     jumlah_surat = []
     
     all_users = list(User.objects.all().values_list('username', flat=True ))
-
     data_tahun = list(DatabaseSurat.objects.all().values_list('tahun', flat=True).distinct())
 
-    
-    for i in all_users:
-        label.append(i)
-        surat_masuk = DatabaseSurat.objects.filter(username = i , surat = 'Masuk', today__month = month ).count()
-        y_masuk.append(surat_masuk)
-        surat_keluar = DatabaseSurat.objects.filter(username = i, surat = 'Keluar' ,today__month = month ).count()
-        y_keluar.append(surat_keluar)
+    try:
+        if request.method == 'POST':
+            bulanan = request.POST.get('bulan')
+            tahun = request.POST.get('tahun')
+
+            # print(bulanan)
+            # print(tahun)
+            
+
+            for i in all_users:
+                label.append(i)
+                surat_masuk = DatabaseSurat.objects.filter(username = i , surat = 'Masuk', today__month = bulanan , today__year = tahun).values()
+                y_masuk.append(surat_masuk)
+                surat_keluar = DatabaseSurat.objects.filter(username = i, surat = 'Keluar' , today__month = bulanan , today__year = tahun).values()
+                y_keluar.append(surat_keluar)
+
+                temp_jumlah = surat_masuk + surat_keluar
+                jumlah_surat.append(temp_jumlah)
 
 
-        temp_jumlah = surat_masuk + surat_keluar
-        jumlah_surat.append(temp_jumlah)
+                print(surat_masuk)
+                print(surat_keluar)
 
-    list_jumlah = zip(label , jumlah_surat)
-    surat = dict(list_jumlah)
+        else:
+            for i in all_users:
+                label.append(i)
+                surat_masuk = DatabaseSurat.objects.filter(username = i , surat = 'Masuk', today__month = month).count()
+                y_masuk.append(surat_masuk)
+                surat_keluar = DatabaseSurat.objects.filter(username = i, surat = 'Keluar' , today__month = month).count()
+                y_keluar.append(surat_keluar)
+
+                temp_jumlah = surat_masuk + surat_keluar
+                jumlah_surat.append(temp_jumlah)
+
+    except:
+        pass
+
+    # list_jumlah = zip(label , jumlah_surat)
+    # surat = dict(list_jumlah)
+    # surat_tersedia = sum(y_masuk) + sum(y_keluar)
     
     context = {
         'page_title' : 'Laporan Bulanan',
         'label' : label,
         'y_masuk' : y_masuk,
         'y_keluar' : y_keluar,
-        'jumlah' :  surat,
-        'tahun_data' : data_tahun
+        # 'jumlah' :  surat,
+        'tahun_data' : data_tahun,
+        # 'tersedia' : surat_tersedia
     }
 
     return render(request , 'pages/laporan_bulanan.html', context)
-
-def laporan_tahunan(request):
-
-    context = {
-        'page_title' : 'Laporan Tahunan'
-    }
-
-    return render(request , 'pages/laporan_tahunan.html', context)

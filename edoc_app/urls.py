@@ -27,9 +27,6 @@ urlpatterns = [
 
     path('laporan_harian/', views.laporan_harian, name='laporan_harian'),
     path('laporan_bulanan/', views.laporan_bulanan, name='laporan_bulanan'),
-    path('laporan_tahunan/', views.laporan_tahunan, name='laporan_tahunan'),
-
-
-
+    
     # path('delete_kelompok/', views.setting_kelompok, name='setting_kelompok'),
 ]
