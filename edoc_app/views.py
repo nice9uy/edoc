@@ -398,16 +398,13 @@ def laporan_harian(request):
     y_keluar = []
     jumlah_surat = []
     harian_temp = []
-    xx = []
-
-    # x = hari
-    
+       
     try : 
         if request.method == 'POST':
             harian = request.POST.get('lapor_per_hari')
             hari = parse_date(harian)
             harian_temp.append(hari)
-
+                        
             for i in all_users:
                 label.append(i)
                 surat_masuk = DatabaseSurat.objects.filter(username = i, surat = 'Masuk', today =  hari ).count()
@@ -419,9 +416,7 @@ def laporan_harian(request):
                 jumlah_surat.append(temp_jumlah)
             
         else:
-            x = 1
-            xx.append(x)
-        
+
             for i in all_users:
                 label.append(i)
                 surat_masuk = DatabaseSurat.objects.filter(username = i, surat = 'Masuk', today =  hari_ini ).count()
@@ -433,18 +428,9 @@ def laporan_harian(request):
                 jumlah_surat.append(temp_jumlah)
     except:
         pass
-       
 
     list_jumlah = zip(label , jumlah_surat)
     surat = dict(list_jumlah)
-
-    # y = int(xx)
-
-    # print(hari_ini)
-
-    # print(y)
-
-    
     context = {
         'page_title' : 'Laporan Harian',
         'label' : label,
@@ -453,7 +439,6 @@ def laporan_harian(request):
         'jumlah' :  surat,
         'hari_ini' : hari_ini,
         'harian'  : harian_temp,
-        'xx'      : xx
     }
 
     return render(request , 'pages/laporan_harian.html', context)

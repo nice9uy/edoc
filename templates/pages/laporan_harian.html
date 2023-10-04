@@ -12,49 +12,36 @@
         <div class="d-flex mt-5 align-content-center ">
             <canvas id="laporan_harian" style="width:100%;max-width:1000px; max-height: 1000px;"></canvas>
 
-            <div class="d-flex flex-column">
+            <div class="d-flex flex-column border border-primary rounded p-4">
 
                 <form action="" method="POST" >
                     {% csrf_token %}
                     <div class="input-group">
                         <input type="date" required id="lapor_per_hari" name="lapor_per_hari" class="form-control" >
-                        <button class="btn btn-primary" type="submit">Proses</button>
+                        <button class="btn btn-primary" type="submit">Cari</button>
                     </div>
                 </form>
 
-
-                    {% if xx == 1  %}
-                    
-                    <h2> {{ hari_ini }}</h2>
-                    
-                    {% else %}
-                    <h2>vhskvskvshb</h2>                    
-                    {% endif %}
-
-                  
-                
+                    {% if harian  %}
                     <div class="mt-3 ">
-                    {% for data in harian %}
-                        <h5>Laporan : {{  data  }}</h5>
-                        <span>=====================</span>
-                    {% endfor %}
-    
+                        {% for data in harian %}
+                            <h5 class="text-light text-center  text-decoration-underline">Laporan : {{  data  }}</h5>
+                        {% endfor %}
                     </div>
-            
-
-        
-                <div class="">
+                    {% else %}  
+                    <div class="mt-3 ">                      
+                            <h5 class="text-light text-center text-decoration-underline" >Laporan : {{  hari_ini  }}</h5>
+                    </div>
+                    {% endif %}
+                <div class="mt-3">
                     {% for key, val  in jumlah.items  %}
-                        <h5>{{ key }} = {{  val }} </h5>  
+                        <h5>{{ forloop.counter }}. {{ key }} = {{  val }} </h5>  
                     {% empty %}
                         <h5>Tidak ada data masuk hari ini</h5>
                     {% endfor %}
-                </div>
-                    
+                </div>          
             </div>
-                
         </div>
-        
     </div>
 </div>
 
