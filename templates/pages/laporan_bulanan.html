@@ -16,6 +16,7 @@
             <div class="d-flex flex-column border border-primary rounded p-4">
 
                 <form method="POST" >
+
                     {% csrf_token %}
                     <div class="d-flex flex-row gap-3">
 
@@ -46,28 +47,24 @@
                         <button class="btn btn-primary mt-3 " type="submit" >Cari</button>
                     </div>
                 </form>
-
-                <div class="mt-3 ">
-                    {% comment %} {% for data in harian %} {% endcomment %}
-                        <h5 class="text-light text-center  text-decoration-underline">Laporan : </h5>
-                    {% comment %} {% endfor %} {% endcomment %}
-                </div>
                 
-                <div class="mt-3">
-                    {% if harian  %}
+                <div class="mt-2">
+                    {% if tersedia == 0 %}
                     <div class="mt-3 ">
-                        {% for data in harian %}
-                            <h5 class="text-light text-center  text-decoration-underline">Laporan : {{  data  }}</h5>
-                        {% endfor %}
-                    </div>
+                        {% for key, val in bulan_tahun.items %}
+                            <h5 class="text-light text-center text-decoration-underline" >Laporan : {{ key }} - {{ val }}</h5>
+                        {% endfor %}                      
+                    </div>  
                     {% else %}  
-                    <div class="mt-3 ">                      
-                            <h5 class="text-light text-center text-decoration-underline" >Laporan : {{  hari_ini  }}</h5>
+                    <div class="mt-3 ">
+                        {% for key, val in bulan_tahun.items %}
+                        <h5 class="text-light text-center text-decoration-underline" >Laporan : {{ key }} - {{ val }}</h5>
+                    {% endfor %}
                     </div>
                     {% endif %}
 
                     <div class="mt-3">
-                    {% if  tersedia == 0 %}
+                    {% if tersedia == 0 %}
                         <h5 class="text-danger text-center ">Data tidak tersedia</h5>                  
                     {% else %}  
                         {% for key, val  in jumlah.items  %}
@@ -77,13 +74,6 @@
                     {% endif %}     
                     </div>     
 
-
-
-                    {% comment %} {% for key, val  in jumlah.items  %}
-                        <h5>{{ key }} = {{  val }} </h5>  
-                    {% empty %}
-                        <h5>Tidak ada data masuk Bulan ini</h5>
-                    {% endfor %}   {% endcomment %}
                 </div>
             </div>
         </div>

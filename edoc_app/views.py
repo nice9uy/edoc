@@ -13,6 +13,7 @@ from datetime import datetime
 from django.utils.dateparse import parse_date
 
 
+
 @csrf_protect
 @login_required(login_url="/accounts/login/")
 def home(request):
@@ -452,11 +453,15 @@ def laporan_harian(request):
 def laporan_bulanan(request):
     now = datetime.now()
     month = now.strftime("%m")
+    year = now.strftime("%Y")
 
     label = []
     y_masuk = []
     y_keluar = []
     jumlah_surat = []
+
+    month_temp = []
+    year_temp = []
     
     all_users = list(User.objects.all().values_list('username', flat=True ))
     data_tahun = list(DatabaseSurat.objects.all().values_list('tahun', flat=True).distinct())
@@ -466,25 +471,29 @@ def laporan_bulanan(request):
             bulanan = request.POST.get('bulan')
             tahun = request.POST.get('tahun')
 
-            # print(bulanan)
-            # print(tahun)
-            
+            datetime_object = datetime.strptime(bulanan, "%m")
+            month_name = datetime_object.strftime("%B")
+            month_temp.append(month_name)
+
+            year_temp.append(tahun)
 
             for i in all_users:
                 label.append(i)
-                surat_masuk = DatabaseSurat.objects.filter(username = i , surat = 'Masuk', today__month = bulanan , today__year = tahun).values()
+                surat_masuk = DatabaseSurat.objects.filter(username = i , surat = 'Masuk', today__month = bulanan , today__year = tahun).count()
                 y_masuk.append(surat_masuk)
-                surat_keluar = DatabaseSurat.objects.filter(username = i, surat = 'Keluar' , today__month = bulanan , today__year = tahun).values()
+                surat_keluar = DatabaseSurat.objects.filter(username = i, surat = 'Keluar' , today__month = bulanan , today__year = tahun).count()
                 y_keluar.append(surat_keluar)
 
                 temp_jumlah = surat_masuk + surat_keluar
                 jumlah_surat.append(temp_jumlah)
 
-
-                print(surat_masuk)
-                print(surat_keluar)
-
         else:
+            datetime_object = datetime.strptime(month, "%m")
+            month_name = datetime_object.strftime("%B")
+            month_temp.append(month_name)
+
+            year_temp.append(year)
+
             for i in all_users:
                 label.append(i)
                 surat_masuk = DatabaseSurat.objects.filter(username = i , surat = 'Masuk', today__month = month).count()
@@ -498,18 +507,24 @@ def laporan_bulanan(request):
     except:
         pass
 
-    # list_jumlah = zip(label , jumlah_surat)
-    # surat = dict(list_jumlah)
-    # surat_tersedia = sum(y_masuk) + sum(y_keluar)
     
+    list_jumlah = zip(label , jumlah_surat)
+    surat = dict(list_jumlah)
+    surat_tersedia = sum(y_masuk) + sum(y_keluar)
+
+    month_year = zip(month_temp, year_temp)
+    final_month_year = dict(month_year)
+
     context = {
         'page_title' : 'Laporan Bulanan',
         'label' : label,
         'y_masuk' : y_masuk,
         'y_keluar' : y_keluar,
-        # 'jumlah' :  surat,
+        'jumlah' :  surat,
         'tahun_data' : data_tahun,
-        # 'tersedia' : surat_tersedia
+        'tersedia' : surat_tersedia,
+        'bulan_ini' : month,
+        'bulan_tahun' : final_month_year
     }
 
     return render(request , 'pages/laporan_bulanan.html', context)
