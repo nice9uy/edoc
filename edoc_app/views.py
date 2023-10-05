@@ -271,11 +271,24 @@ def olah_data(request):
     klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
     kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
 
+    if request.method == 'POST':
+        tgl = request.POST.get("lapor_per_hari_semua_data")
+        cari_tanggal = parse_date(tgl)
+
+        # filter_data_perhari = DatabaseSurat.objects.all().filter(username = id_username , today =  cari_tanggal ).values_list()
+        filter_data_perhari = DatabaseSurat.objects.filter(id_user = id_username, today =  cari_tanggal ).values()
+        data_count = DatabaseSurat.objects.filter(id_user = id_username, today =  cari_tanggal ).count()
+
+
+        print(filter_data_perhari)
+
     context = {
         'page_title'     : 'Olah Data',
         'datasemuasurat' : datasemuasurat,
         'klasifikasi'    : klasifikasi,
         'kelompok'       : kelompok,
+        'filter_hari'    : filter_data_perhari,
+        'data_count'     : data_count
     }
     return render(request,'pages/olah_data.html', context)
 
@@ -433,9 +446,6 @@ def laporan_harian(request):
     list_jumlah = zip(label , jumlah_surat)
     surat = dict(list_jumlah)
     surat_tersedia = sum(y_masuk) + sum(y_keluar)
-
-
-    print(harian_temp)
 
     context = {
         'page_title' : 'Laporan Harian',
