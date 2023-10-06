@@ -9,32 +9,6 @@
 
 
 <div class="d-flex flex-fill">
- {% comment %} <div class="container-fluid mt-1 text-white">
-    <h5 class="text-center">Surat</h5>
-    <table id="tabel_surat" class="table table-striped table-bordered text-white" style="width:100%">
-        <thead>
-            <tr> 
-                <th class="text-center">Surat</th>
-                <th class="text-center">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for data in surat %} 
-            <tr>    
-                    <td>{{ data.nama_surat }}</td>
-                    <td class="text-center px-3"> 
-                          <button type="button" class="btn btn-success fas fa-edit"  data-bs-toggle="modal"  data-placement="bottom" title="Edit" data-bs-target="#button_edit_surat{{ data.id }}" ></button>
-                          <button type="button" class="btn btn-danger fa fa-trash"  data-bs-toggle="modal" data-placement="bottom" title="Hapus" data-bs-target="#button_delete_surat{{ data.id }}"></button>
-                    </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <div class="gap-2 col-sm-4 mx-auto">
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-placement="bottom" title="Tambah Data Surat" data-bs-target="#ModalSurat">Tambah Surat</button>
-    </div>
-  </div>  {% endcomment %}
-
     <div class="container-fluid mt-1 text-white">
         <h5 class="text-center">Klasifikasi</h5>
         <table id="tabel_klasifikasi" class="table table-striped table-bordered text-white" style="width:100%">

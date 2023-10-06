@@ -4,21 +4,10 @@
 
 {% block olah_data %}
 
-{%include 'partials/header_setting.html' %}
+{%include 'partials/header_olah_data.html' %}
 
 <div class="container-fluid mt-1 text-white">
-    <form method="POST" >
-        {% csrf_token %}
-        <div class="input-group mb-1">
-                <div style="margin-left: auto; margin-right: -180px; ">
-                    <h5 class="mx-auto ">SEMUA DATA</h5>
-                </div>
-                <div class="d-flex ms-auto">
-                    <input type="date" required id="lapor_per_hari_semua_data" name="lapor_per_hari_semua_data" class="form-control" >
-                    <button class="btn btn-primary" type="submit">Cari</button>
-                </div>
-        </div>
-    </form>
+    <h5 class="text-center">SEMUA DATA</h5> 
     <table id="tabel_index" class="table table-striped table-bordered text-white" style="width:100%">
         <thead>
             <tr>
@@ -33,9 +22,6 @@
                 <th class="text-center">Aksi</th>
         </thead>
         <tbody>
-            
-            {% if data_count == 0 %}
-
                 {% for data in datasemuasurat %}
                 <tr>
                         <td>{{ data.surat }}</td>
@@ -51,48 +37,7 @@
                             <button type="button" class="btn btn-danger fa fa-trash"  data-bs-toggle="modal" data-placement="bottom" title="Hapus" data-bs-target="#button_delete_olah_data{{ data.id }}"></button>
                     </td>
                 </tr>
-                {% endfor %}
-
-            {% elif data_count == 0 %}
-
-                {% for data in datasemuasurat %}
-                <tr>
-                        <td>{{ data.surat }}</td>
-                        <td>{{ data.klasifikasi }}</td>
-                        <td>{{ data.kelompok }}</td>
-                        <td>{{ data.tgl | date:"d M Y"}}</td>
-                        <td>{{ data.no_surat }}</td>
-                        <td>{{ data.kepada }}</td>
-                        <td>{{ data.perihal }}</td>
-                        <td> <a class="nav-link active text-center" aria-current="page" target="_blank" href="/upload/{{ data.upload_file }}">Lihat</a> </td>
-                        <td class="text-center px-3"> 
-                            <button type="button" class="btn btn-success fas fa-edit"  data-bs-toggle="modal"  data-placement="bottom" title="Edit" data-bs-target="#button_edit_olah_data{{ data.id }}" ></button>
-                            <button type="button" class="btn btn-danger fa fa-trash"  data-bs-toggle="modal" data-placement="bottom" title="Hapus" data-bs-target="#button_delete_olah_data{{ data.id }}"></button>
-                    </td>
-                </tr>
-                {% endfor %}
-
-
-            {% else %}
-
-                {% for data in filter_hari %}
-                <tr>
-                    <td>{{ data.surat }}</td>
-                    <td>{{ data.klasifikasi }}</td>
-                    <td>{{ data.kelompok }}</td>
-                    <td>{{ data.tgl | date:"d M Y"}}</td>
-                    <td>{{ data.no_surat }}</td>
-                    <td>{{ data.kepada }}</td>
-                    <td>{{ data.perihal }}</td>
-                    <td> <a class="nav-link active text-center" aria-current="page" target="_blank" href="/upload/{{ data.upload_file }}">Lihat</a> </td>
-                    <td class="text-center px-3"> 
-                        <button type="button" class="btn btn-success fas fa-edit"  data-bs-toggle="modal"  data-placement="bottom" title="Edit" data-bs-target="#button_edit_olah_data{{ data.id }}" ></button>
-                        <button type="button" class="btn btn-danger fa fa-trash"  data-bs-toggle="modal" data-placement="bottom" title="Hapus" data-bs-target="#button_delete_olah_data{{ data.id }}"></button>
-                </td>
-                </tr>
-                {% endfor %}
-
-            {% endif %}
+                {% endfor %} 
         </tbody>
     </table>
 </div>

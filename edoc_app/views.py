@@ -266,31 +266,70 @@ def delete_setting_kelompok(request, id_delete_kelompok):
 @csrf_protect
 @login_required(login_url="/accounts/login/")
 def olah_data(request):
+  
+
     id_username = request.user.pk
     datasemuasurat = DatabaseSurat.objects.filter(id_user = id_username).values()
     klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
     kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
-
-    if request.method == 'POST':
-        tgl = request.POST.get("lapor_per_hari_semua_data")
-        cari_tanggal = parse_date(tgl)
-
-        # filter_data_perhari = DatabaseSurat.objects.all().filter(username = id_username , today =  cari_tanggal ).values_list()
-        filter_data_perhari = DatabaseSurat.objects.filter(id_user = id_username, today =  cari_tanggal ).values()
-        data_count = DatabaseSurat.objects.filter(id_user = id_username, today =  cari_tanggal ).count()
-
-
-        print(filter_data_perhari)
-
+    
     context = {
         'page_title'     : 'Olah Data',
         'datasemuasurat' : datasemuasurat,
         'klasifikasi'    : klasifikasi,
         'kelompok'       : kelompok,
-        'filter_hari'    : filter_data_perhari,
-        'data_count'     : data_count
+       
     }
     return render(request,'pages/olah_data.html', context)
+
+@csrf_protect
+@login_required(login_url="/accounts/login/")
+def olah_data_harian(request):
+    hari_ini = date.today()
+    temp_filter = []
+    temp_data_count = []
+    data_surat = []
+
+    id_username = request.user.pk
+    
+    klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
+    kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
+
+    # print(datasemuasurat)
+
+   
+    if request.method == 'POST':
+        tgl = request.POST.get("lapor_per_hari_semua_data")
+        cari_tanggal = parse_date(tgl)
+
+            # filter_data_perhari = DatabaseSurat.objects.all().filter(username = id_username , today =  cari_tanggal ).values_list()
+        filter_data_perhari = DatabaseSurat.objects.filter(id_user = id_username, today =  cari_tanggal ).values()
+        data_count = DatabaseSurat.objects.filter(id_user = id_username, today =  cari_tanggal ).count()
+
+        temp_filter.append(filter_data_perhari)
+        temp_data_count.append(data_count)
+
+            # print(temp_filter)
+            # print(data_count)
+
+    else:
+        datasemuasurat = DatabaseSurat.objects.filter(id_user = id_username ,  today =  hari_ini ).values()
+        data_surat.append(datasemuasurat)
+            
+    print(temp_filter)
+    
+
+    # print(temp_filter)
+
+    context = {
+        'page_title'     : 'Olah Data',
+        'datasemuasurat' : data_surat,
+        'klasifikasi'    : klasifikasi,
+        'kelompok'       : kelompok,
+        'filter_hari'    : temp_filter,
+        'data_count'     : temp_data_count
+    }
+    return render(request,'pages/olah_data_harian.html', context)
 
 @csrf_protect
 @login_required(login_url="/accounts/login/")
