@@ -8,7 +8,30 @@
 
 
 <div class="container-fluid mt-3 text-white" style="">
+    
     <h5 class="text-center">DATA SEMUA SURAT</h5>
+    {% comment %} <div class="d-flex flex-column-reverse ">
+        <select class="form-select" required aria-label="Default select example" name="surat">
+          <option value="">SURAT</option>
+          <option value="Masuk">Masuk</option>
+          <option value="Keluar">Keluar</option>
+        </select>
+
+        <select class="form-select" required aria-label="Default select example" name="klasifikasi">
+          <option value="">KLASIFIKASI SURAT</option>
+          {% for v in klasifikasi %}
+          <option value="{{ v }}">{{v}}</option>
+          {% endfor %}
+        </select>
+
+        <select class="form-select" required aria-label="Default select example" name="kelompok">
+          <option value="">KELOMPOK SURAT</option>
+          {% for v in kelompok %}
+          <option value="{{ v }}">{{v}}</option>
+          {% endfor %}
+        </select>
+      </div> {% endcomment %}
+   
     <table id="tabel_index" class="table table-striped table-bordered text-white" style="width:100%">
         <thead>
             <tr>

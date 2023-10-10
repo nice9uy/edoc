@@ -1,0 +1,96 @@
+{% load static %}
+
+<!-- modal untuk edit Olah Data -->
+{% for data in datasemuasurat %} 
+    <div class="modal fade" id="button_edit_olah_data_harian{{ data.id }}" tabindex="-1" aria-labelledby="button_edit_olah_data_harian" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="button_edit_olah_data_harian">Edit Data</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <form action ="{% url 'edit_olah_data_harian' data.id %}" method="POST" class="was-validated">
+            {% csrf_token %}
+            <div class="modal-body">
+              <div> 
+                  <div class="d-flex gap-4">
+                       <select class="form-select" id="surat" required name="surat">
+                            <option value="">SURAT</option>
+                            <option value="Masuk" >Masuk</option>
+                            <option value="Keluar">Keluar</option>
+                        </select>  
+
+                        <select class="form-select" id="klasifikasi" required name="klasifikasi">
+                            <option value="">KLASIFIKASI</option>
+                            {% for dataklasifikasi in klasifikasi %}
+                                <option value="{{ dataklasifikasi }}"  >{{ dataklasifikasi }} </option>
+                            {% endfor %}
+                        </select>
+
+                        <select class="form-select" id="kelompok" required name="kelompok">
+                            <option value="">KELOMPOK</option>
+                            {% for datakelompok in kelompok %}
+                                <option value="{{ datakelompok }}" >{{ datakelompok }}</option>
+                            {% endfor %}
+                        </select>
+ 
+                        <div>
+                          <input type="date" class="form-control" required value="{{ data.tanggal }}" name="tanggal">
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <label for="no_surat" class="form-label">No Surat</label>
+                        <input type="text" class="form-control" id="no_surat" required name="no_surat" value="{{ data.no_surat }}">
+                    </div>
+                    <div class="mt-2">
+                        <label for="kepada" class="form-label">Kepada</label>
+                        <input type="text" class="form-control" id="kepada" required name="kepada" value="{{ data.kepada }}">
+                    </div>
+                    <div class="mt-2">
+                        <label for="perihal" class="form-label">Prihal</label>
+                        <input type="text" class="form-control" id="perihal" required name="perihal" value="{{ data.perihal }}">
+                    </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Edit</button>
+            </div> 
+          </form>
+        </div>KelompokSurat
+      </div>
+    </div>
+{% endfor %}
+
+<!-- modal untuk delete Olah Data -->
+{% for data in datasemuasurat %} 
+    <div class="modal fade" id="button_delete_olah_data_harian{{ data.id }}" tabindex="-1" aria-labelledby="delete_surat" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="delete_surat">Hapus Data</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="{% url 'delete_olah_data_harian' data.id %}" method="POST">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div class="mb-3" >
+                      <span>Surat       : {{data.surat}}</span> <br>
+                      <span>Klasifikasi : {{data.klasifikasi}}</span> <br>
+                      <span>Kelompok    : {{data.kelompok}}</span> <br>
+                      <span>Tanggal     : {{data.tgl}}</span> <br>
+                      <span>No Surat    : {{data.no_surat}}</span> <br>
+                      <span>Kepada      : {{data.kepada}}</span> <br>
+                      <span>Prihal      : {{data.perihal}}</span> <br><br>
+                      <p class="text-center">Apakah yakin ini ingin dihapus ?</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Hapus</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+{% endfor %}
+

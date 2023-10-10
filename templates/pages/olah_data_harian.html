@@ -11,7 +11,7 @@
         {% csrf_token %}
         <div class="input-group mb-1">
                 <div style="margin-left: auto; margin-right: -180px; ">
-                    <h5 class="mx-auto">Data tanggal </h5>
+                    <h5 class="mx-auto">Data tanggal {{ sekarang }}</h5>
                 </div>
                 <div class="d-flex ms-auto">
                     <input type="date" required id="lapor_per_hari_semua_data" name="lapor_per_hari_semua_data" class="form-control" >
@@ -36,7 +36,7 @@
 
             {% comment %} {% if data_count == 0 %} {% endcomment %}
 
-            {% if data_count != 0 %}
+            {% comment %} {% if data_count != 0 %}
 
                 {% for data in filter_hari %}
                     <tr>
@@ -56,7 +56,7 @@
                 {% endfor %} 
 
 
-            {% else %}
+            {% else %} {% endcomment %}
                 {% for data in datasemuasurat %}
                         <tr>
                             <td>{{ data.surat }}</td>
@@ -68,13 +68,12 @@
                             <td>{{ data.perihal }}</td>
                             <td> <a class="nav-link active text-center" aria-current="page" target="_blank" href="/upload/{{ data.upload_file }}">Lihat</a> </td>
                             <td class="text-center px-3"> 
-                                <button type="button" class="btn btn-success fas fa-edit"  data-bs-toggle="modal"  data-placement="bottom" title="Edit" data-bs-target="#button_edit_olah_data{{ data.id }}" ></button>
-                                <button type="button" class="btn btn-danger fa fa-trash"  data-bs-toggle="modal" data-placement="bottom" title="Hapus" data-bs-target="#button_delete_olah_data{{ data.id }}"></button>
+                                <button type="button" class="btn btn-success fas fa-edit"  data-bs-toggle="modal"  data-placement="bottom" title="Edit" data-bs-target="#button_edit_olah_data_harian{{ data.id }}" ></button>
+                                <button type="button" class="btn btn-danger fa fa-trash"  data-bs-toggle="modal" data-placement="bottom" title="Hapus" data-bs-target="#button_delete_olah_data_harian{{ data.id }}"></button>
                             </td>
                         </tr>
                 {% endfor %} 
-            {% endif %}
-
+        
 
                
 
@@ -82,7 +81,7 @@
     </table>
 </div>
 
-{% include 'partials/modal_olah_data.html' %}
+{% include 'partials/modal_olah_data_harian.html' %}
 
 <div class="container">
     <footer class="">

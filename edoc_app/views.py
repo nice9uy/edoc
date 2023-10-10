@@ -284,55 +284,6 @@ def olah_data(request):
 
 @csrf_protect
 @login_required(login_url="/accounts/login/")
-def olah_data_harian(request):
-    hari_ini = date.today()
-    temp_filter = []
-    temp_data_count = []
-    data_surat = []
-
-    id_username = request.user.pk
-    
-    klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
-    kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
-
-    # print(datasemuasurat)
-
-   
-    if request.method == 'POST':
-        tgl = request.POST.get("lapor_per_hari_semua_data")
-        cari_tanggal = parse_date(tgl)
-
-            # filter_data_perhari = DatabaseSurat.objects.all().filter(username = id_username , today =  cari_tanggal ).values_list()
-        filter_data_perhari = DatabaseSurat.objects.filter(id_user = id_username, today =  cari_tanggal ).values()
-        data_count = DatabaseSurat.objects.filter(id_user = id_username, today =  cari_tanggal ).count()
-
-        temp_filter.append(filter_data_perhari)
-        temp_data_count.append(data_count)
-
-            # print(temp_filter)
-            # print(data_count)
-
-    else:
-        datasemuasurat = DatabaseSurat.objects.filter(id_user = id_username ,  today =  hari_ini ).values()
-        data_surat.append(datasemuasurat)
-            
-    print(temp_filter)
-    
-
-    # print(temp_filter)
-
-    context = {
-        'page_title'     : 'Olah Data',
-        'datasemuasurat' : data_surat,
-        'klasifikasi'    : klasifikasi,
-        'kelompok'       : kelompok,
-        'filter_hari'    : temp_filter,
-        'data_count'     : temp_data_count
-    }
-    return render(request,'pages/olah_data_harian.html', context)
-
-@csrf_protect
-@login_required(login_url="/accounts/login/")
 def edit_olah_data(request, id_edit_olah_data):
     id_username = request.user
     edit_olah = get_object_or_404(DatabaseSurat, pk = id_edit_olah_data)
@@ -417,6 +368,142 @@ def delete_olah_data(request, id_delete_olah_data):
         return redirect('olah_data')
     
     return render(request,'pages/olah_data.html')
+
+@csrf_protect
+@login_required(login_url="/accounts/login/")
+def olah_data_harian(request):
+    
+    if request.method == 'POST':
+        tgl = request.POST.get("lapor_per_hari_semua_data")
+        cari_tanggal = parse_date(tgl)
+
+        id_username = request.user.pk
+        datasemuasurat = DatabaseSurat.objects.filter(id_user = id_username, today =  cari_tanggal ).values()
+        klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
+        kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
+
+    else:
+        cari_tanggal = date.today()
+        id_username = request.user.pk
+        datasemuasurat = DatabaseSurat.objects.filter(id_user = id_username, today =  cari_tanggal ).values()
+        klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
+        kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
+        
+    context = {
+        'page_title'     : 'Olah Data',
+        'datasemuasurat' : datasemuasurat,
+        'klasifikasi'    : klasifikasi,
+        'kelompok'       : kelompok,
+        'sekarang'       : cari_tanggal
+       
+    }
+    return render(request,'pages/olah_data_harian.html', context)
+
+@csrf_protect
+@login_required(login_url="/accounts/login/")
+def edit_olah_data_harian(request, id_edit_olah_data_harian):
+    id_username = request.user
+    edit_olah = get_object_or_404(DatabaseSurat, pk = id_edit_olah_data_harian)
+    now = datetime.now()
+    year = now.strftime("%Y")
+
+    if request.method == 'POST':
+        id_user = request.user.pk
+        username = str(id_username)
+        surat = request.POST.get('surat')
+        klasifikasi = request.POST.get('klasifikasi')
+        kelompok = request.POST.get('kelompok')
+        tgl = request.POST.get('tanggal')
+        no_surat = request.POST.get('no_surat')
+        kepada = request.POST.get('kepada')
+        prihal = request.POST.get('perihal')
+        upload = edit_olah.upload_file.name
+        today = edit_olah.today
+ 
+        edit_olah = DatabaseSurat(
+            id          = id_edit_olah_data_harian,
+            id_user     = id_user,  
+            username    = username,
+            surat       = surat,
+            klasifikasi = klasifikasi,
+            kelompok    = kelompok,
+            tgl         = tgl,
+            no_surat    = no_surat,
+            kepada      = kepada,
+            perihal     = prihal,
+            upload_file = upload,
+            today       = today,
+            tahun       = year,
+        )
+        edit_olah.save()
+        edit_olah.clean_fields()
+        return redirect('olah_data_harian')
+   
+    return render(request,'pages/olah_data_harian.html')
+
+@csrf_protect
+@login_required(login_url="/accounts/login/")
+def delete_olah_data_harian(request, id_delete_olah_data_harian):
+    id_olah_data = request.user.pk
+    id_username = request.user
+    delete_olah_data = DatabaseSurat.objects.get(pk = id_delete_olah_data_harian).id
+    upload_file_files   = DatabaseSurat.objects.get(pk = id_delete_olah_data_harian)
+    
+    now = datetime.now()
+    year = now.strftime("%Y")
+
+    if request.method == 'POST':
+        upload_file_files.upload_file.delete()
+
+        id_user = int(id_olah_data)
+        username = str(id_username)
+        surat = request.POST.get('surat')
+        klasifikasi = request.POST.get('klasifikasi')
+        kelompok = request.POST.get('kelompok')
+        tgl = request.POST.get('tanggal')
+        no_surat = request.POST.get('no_surat')
+        kepada = request.POST.get('kepada')
+        prihal = request.POST.get('perihal')
+        hari_ini =    upload_file_files.today
+       
+        edit_olah = DatabaseSurat(
+            id          = delete_olah_data,
+            id_user     = id_user,  
+            username    = username,
+            surat       = surat,
+            klasifikasi = klasifikasi,
+            kelompok    = kelompok,
+            tgl         = tgl,
+            no_surat    = no_surat,
+            kepada      = kepada,
+            perihal     = prihal,
+            # upload_file = upload_file,
+            today       = hari_ini,
+            tahun       = year,
+        )
+        edit_olah.delete()
+        return redirect('olah_data_harian')
+    
+    return render(request,'pages/olah_data_harian.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def hari_ini(request):
