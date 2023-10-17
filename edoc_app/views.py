@@ -60,7 +60,6 @@ def tambah_data(request):
         prihal = files_name[2] 
         prihal_surat = prihal[:-4]
 
-
         upload_data = DatabaseSurat(
             id_user     = id_username,
             username    = username,
@@ -485,26 +484,6 @@ def delete_olah_data_harian(request, id_delete_olah_data_harian):
         return redirect('olah_data_harian')
     
     return render(request,'pages/olah_data_harian.html')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 def hari_ini(request):
     id_username = request.user.pk
