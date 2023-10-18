@@ -66,10 +66,15 @@
                             <td>{{ data.no_surat }}</td>
                             <td>{{ data.kepada }}</td>
                             <td>{{ data.perihal }}</td>
-                            <td> <a class="nav-link active text-center" aria-current="page" target="_blank" href="/upload/{{ data.upload_file }}">Lihat</a> </td>
+                            <td class="d-flex justify-content-center" > 
+                                <div style="margin-top: 6px;">
+                                    <a class="fa fa-file-pdf-o" aria-current="page" title="Files"  target="_blank" href="/upload/{{ data.upload_file }}"></a> 
+                                </div>
+                            </td>
                             <td class="text-center px-3"> 
                                 <button type="button" class="btn btn-success fas fa-edit"  data-bs-toggle="modal"  data-placement="bottom" title="Edit" data-bs-target="#button_edit_olah_data_harian{{ data.id }}" ></button>
                                 <button type="button" class="btn btn-danger fa fa-trash"  data-bs-toggle="modal" data-placement="bottom" title="Hapus" data-bs-target="#button_delete_olah_data_harian{{ data.id }}"></button>
+                                <button type="button" class="btn btn-warning  fa-solid fa-paperclip"  data-bs-toggle="modal" data-placement="bottom" title="Lampiran" data-bs-target="#"></button>
                             </td>
                         </tr>
                 {% endfor %} 

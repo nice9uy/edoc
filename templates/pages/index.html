@@ -54,7 +54,14 @@
                     <td>{{ data.no_surat }}</td>
                     <td>{{ data.kepada }}</td>
                     <td>{{ data.perihal }}</td>
-                    <td> <a class="nav-link active text-center" aria-current="page" target="_blank" href="/upload/{{ data.upload_file }}">Lihat</a> </td>
+                    <td class="d-flex justify-content-center"> 
+                        <div style="margin-left: -15px;">
+                          <a class="fa fa-file-pdf-o" aria-current="page" title="Files"  target="_blank" href="/upload/{{ data.upload_file }}"></a> 
+                        </div>
+                        <div style="margin-left: 15px;"> 
+                          <a class="fa-solid fa-paperclip" aria-current="page" title="Lampiran" target="_blank" href=""></a> 
+                        </div>
+                    </td>
                </tr>
             {% endfor %}
         </tbody>
