@@ -26,6 +26,7 @@ urlpatterns = [
     path('edoc/',include('edoc_app.urls')),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path("__debug__/", include("debug_toolbar.urls")),
     
 ]
 

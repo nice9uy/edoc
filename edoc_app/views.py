@@ -20,11 +20,15 @@ def home(request):
     id_username = request.user.pk
     user = request.user
     datasemuasurat = DatabaseSurat.objects.filter(id_user = id_username).values()
+    klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
+    kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
 
     context = {
         'page_title'     : 'Home',
         'datasemuasurat' :  datasemuasurat,
-        'user'           :  user
+        'user'           :  user,
+        'klasifikasi'    : klasifikasi,
+        'kelompok'       : kelompok,
     }
     
     return render(request,'pages/index.html', context)
