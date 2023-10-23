@@ -17,32 +17,44 @@
         <div class="container-fluid ">
           <ul class="navbar-nav gap-4">
 
-            {% comment %} {% if  %} {% endcomment %}
-
             <span >Selamat Datang ,  {{ user | capfirst }}</span>
+
+            {% if user.is_active  and user.is_superuser %}
+
             <li class="nav-item">
               <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" aria-current="page" href="{% url 'home' %}" >Home</a>
             </li>
-            <li class="nav-item">
-              <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'tambah_data' %}">Dashboard</a>
-            </li>
-            <li class="nav-item">
-              <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'tambah_data' %}">Tambah Data</a>
-            </li>
+          
             <li class="nav-item">
               <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'laporan_harian' %}">Laporan</a>
             </li>
-            <li class="nav-item">
-              <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'olah_data'%}">Olah Data</a>
-            </li>
-            <li class="nav-item">
-              <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'setting' %}">Settings</a>
-          </li>
+            
             <li class="nav-item">
               <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'logout' %}">Logout</a>
             </li>
 
-          {% comment %} {% endif %} {% endcomment %}
+          {% else  %}
+
+          <li class="nav-item">
+            <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" aria-current="page" href="{% url 'home' %}" >Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'tambah_data' %}">Tambah Data</a>
+          </li>
+         
+          <li class="nav-item">
+            <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'olah_data'%}">Olah Data</a>
+          </li>
+          <li class="nav-item">
+            <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'setting' %}">Settings</a>
+        </li>
+          <li class="nav-item">
+            <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'logout' %}">Logout</a>
+          </li>
+
+          
+
+          {% endif %}
           </ul>
         </div>
       </nav>
