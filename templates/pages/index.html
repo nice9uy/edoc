@@ -17,8 +17,9 @@
       <div style="margin-top: -2.5rem;">
         <select class="form-select form-select-sm" title="Filter User" required aria-label="Default select example" name="surat">
           <option value="">USER</option>
-          <option value="Masuk">Masuk</option>
-          <option value="Keluar">Keluar</option>
+          {% for user in admin_user %}
+          <option value="{{ user }}">{{ user}}</option>
+          {% endfor %}
         </select>
       </div>
     </div>

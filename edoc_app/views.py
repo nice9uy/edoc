@@ -25,11 +25,17 @@ def home(request):
 
     datasemuasurat_admin = DatabaseSurat.objects.all()
 
+    admin_user = list(DatabaseSurat.objects.all().values_list("username" , flat=True).distinct())
+
+
+    
+
     context = {
         'page_title'            : 'Home',
         'datasemuasurat'        :  datasemuasurat,
         'datasemuasurat_admin'  :  datasemuasurat_admin,
         'user'                  :  user,
+        'admin_user'            :  admin_user,
         'klasifikasi'           :  klasifikasi,
         'kelompok'              :  kelompok,
     }
