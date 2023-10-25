@@ -18,27 +18,19 @@ from django.utils.dateparse import parse_date
 def home(request):
     id_username = request.user.pk
 
-    print(id_username)
     user = request.user
 
     admin = request.user.is_superuser
     admin_user = list(DatabaseSurat.objects.all().values_list("username" , flat=True).distinct())
 
-    temp_klasifikasi = []
+    tag = []
 
     if request.method == 'POST' and admin == True:
         admin_check = request.POST.get('user')
-        
+
         datasemuasurat = DatabaseSurat.objects.filter(username = admin_check).values()
-        # klasifikasi = list(KlasifikasiSurat.objects.values("nama_klasifikasi"))
-        klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username , ).values_list("nama_klasifikasi" , flat=True)
-        kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
-
-        # print(klasifikasi)
-        # for k , v in klasifikasi:
-        #     temp_klasifikasi.append(v)
-
-        print(klasifikasi)
+        klasifikasi = KlasifikasiSurat.objects.filter(username = admin_check).values_list("nama_klasifikasi" , flat=True)
+        kelompok = KelompokSurat.objects.filter(username = admin_check).values_list("nama_kelompok", flat=True)
 
     elif admin == True:
         datasemuasurat = DatabaseSurat.objects.all()
@@ -50,12 +42,10 @@ def home(request):
         klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
         kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
 
-        
-
     context = {
         'page_title'            : 'Home',
         'datasemuasurat'        :  datasemuasurat,
-        # 'datasemuasurat_admin'  :  datasemuasurat_admin,
+        # 'tag_judul'             :  admin_check,
         'user'                  :  user,
         'admin_user'            :  admin_user,
         'klasifikasi'           :  klasifikasi,
@@ -74,8 +64,6 @@ def tambah_data(request):
     year = now.strftime("%Y")
 
     hari_ini = date.today()
-
-    # surat_id = NamaSurat.objects.filter(id_user = id_username).values_list("nama_surat" , flat=True)
     klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
     kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
    
@@ -202,11 +190,14 @@ def delete_setting_surat(request, id_delete_setting):
 @login_required(login_url="/accounts/login/")
 def setting_klasifikasi(request):
     if request.method == 'POST':
-        user_name = request.user.pk
+        id_user = request.user.pk
+        user = request.user
+        # user = request.user
         nama_klasifikasi = request.POST.get('nama_klasifikasi_surat')
     
         klasifikasi = KlasifikasiSurat(
-            id_user         = user_name,
+            id_user         = id_user,
+            username        = user,  
             nama_klasifikasi = nama_klasifikasi
         )
 
@@ -223,11 +214,14 @@ def edit_setting_klasifikasi(request, id_edit_klasifikasi):
 
     if request.method == 'POST':
         user_name = request.user.pk
+        user = str(request.user)
+        
         nama_surat = request.POST.get('nama_klasifikasi_surat')
     
         edit_klasifikasi = KlasifikasiSurat(
-            id = id_edit_klasifikasi,
-            id_user   = user_name, 
+            id               = id_edit_klasifikasi,
+            id_user          = user_name, 
+            username         = user,  
             nama_klasifikasi = nama_surat,
         )
         edit_klasifikasi.save()
@@ -253,10 +247,12 @@ def delete_setting_klasifikasi(request, id_delete_klasifikasi):
 def setting_kelompok(request):
     if request.method == 'POST':
         user_name = request.user.pk
+        user = request.user
         nama_kelompok = request.POST.get('nama_kelompok_surat')
 
         kelompok = KelompokSurat(
-            id_user      = user_name,
+            id_user       = user_name,
+            username      = user,  
             nama_kelompok = nama_kelompok
         )
 
@@ -273,11 +269,13 @@ def edit_setting_kelompok(request, id_setting_kelompok):
 
     if request.method == 'POST':
         user_name = request.user.pk
+        user = str(request.user)
         nama_surat = request.POST.get('nama_kelompok_surat')
     
         edit_kelompok = KelompokSurat(
-            id = id_setting_kelompok,
-            id_user   = user_name, 
+            id            = id_setting_kelompok,
+            id_user       = user_name, 
+            username      = user,  
             nama_kelompok = nama_surat,
         )
         edit_kelompok.save()
@@ -544,7 +542,7 @@ def hari_ini(request):
     return render(request , 'pages/hari_ini.html', context)
 
 def laporan_harian(request):
-    all_users = list(DatabaseSurat.objects.values_list('username', flat=True))
+    all_users = list(DatabaseSurat.objects.values_list('username', flat=True).distinct())
     hari_ini = date.today()
 
     label = []
@@ -613,7 +611,7 @@ def laporan_bulanan(request):
     month_temp = []
     year_temp = []
     
-    all_users = list(DatabaseSurat.objects.all().values_list('username', flat=True ))
+    all_users = list(DatabaseSurat.objects.all().values_list('username', flat=True).distinct())
     data_tahun = list(DatabaseSurat.objects.all().values_list('tahun', flat=True).distinct())
 
     try:

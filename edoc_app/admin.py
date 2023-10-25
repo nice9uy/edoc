@@ -15,10 +15,10 @@ class ListNamaSurat(admin.ModelAdmin):
     list_display = ('id_user','id' , 'nama_surat')
 
 class ListKlasifikasiSurat(admin.ModelAdmin):
-    list_display =  ('id_user','id' , 'nama_klasifikasi')
+    list_display =  ('id_user','id' , 'username', 'nama_klasifikasi')
 
 class ListKelompokSurat(admin.ModelAdmin):
-    list_display =  ('id_user','id' , 'nama_kelompok')
+    list_display =  ('id_user','id' , 'username', 'nama_kelompok')
 
 admin.site.register(DatabaseSurat,ListDatabaseSurat)
 admin.site.register(NamaSurat, ListNamaSurat)

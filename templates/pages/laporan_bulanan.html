@@ -22,6 +22,7 @@
 
                         <select class="form-select" id="bulan" required name="bulan">
                             <option value="">BULAN</option>
+                            <option value="">-----</option>
                             <option value="1" >Januari</option>
                             <option value="2">Februari</option>
                             <option value="3">Maret</option>
@@ -38,6 +39,7 @@
 
                         <select class="form-select" id="tahun" required name="tahun">
                             <option value="">TAHUN</option>
+                            <option value="">-----</option>
                             {% for thn in tahun_data %}
                                 <option value="{{ thn }}" >{{ thn  }}</option>
                             {% endfor %}

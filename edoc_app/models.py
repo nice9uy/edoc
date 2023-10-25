@@ -35,6 +35,7 @@ class NamaSurat(models.Model):
 class KlasifikasiSurat(models.Model):
     id = models.AutoField(primary_key=True, unique=True)
     id_user = models.CharField(max_length=4)
+    username = models.CharField(max_length=20)
     nama_klasifikasi = models.CharField(max_length=30)
 
     class Meta:
@@ -43,6 +44,7 @@ class KlasifikasiSurat(models.Model):
 class KelompokSurat(models.Model):
     id = models.AutoField(primary_key=True, unique=True)
     id_user = models.CharField(max_length=4)
+    username = models.CharField(max_length=20)
     nama_kelompok = models.CharField(max_length=30)
 
     class Meta:
