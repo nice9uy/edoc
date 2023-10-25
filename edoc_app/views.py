@@ -524,7 +524,7 @@ def hari_ini(request):
 def laporan_harian(request):
     all_users = list(User.objects.values_list('username', flat=True))
     hari_ini = date.today()
-    
+
     label = []
     y_masuk = []
     y_keluar = []
