@@ -13,27 +13,49 @@ from datetime import datetime
 from django.utils.dateparse import parse_date
 
 
-
 @csrf_protect
 @login_required(login_url="/accounts/login/")
 def home(request):
     id_username = request.user.pk
+
+    print(id_username)
     user = request.user
-    datasemuasurat = DatabaseSurat.objects.filter(id_user = id_username).values()
-    klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
-    kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
 
-    datasemuasurat_admin = DatabaseSurat.objects.all()
-
+    admin = request.user.is_superuser
     admin_user = list(DatabaseSurat.objects.all().values_list("username" , flat=True).distinct())
 
+    temp_klasifikasi = []
 
-    
+    if request.method == 'POST' and admin == True:
+        admin_check = request.POST.get('user')
+        
+        datasemuasurat = DatabaseSurat.objects.filter(username = admin_check).values()
+        # klasifikasi = list(KlasifikasiSurat.objects.values("nama_klasifikasi"))
+        klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username , ).values_list("nama_klasifikasi" , flat=True)
+        kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
+
+        # print(klasifikasi)
+        # for k , v in klasifikasi:
+        #     temp_klasifikasi.append(v)
+
+        print(klasifikasi)
+
+    elif admin == True:
+        datasemuasurat = DatabaseSurat.objects.all()
+        klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
+        kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
+
+    else:
+        datasemuasurat = DatabaseSurat.objects.filter(id_user = id_username).values()
+        klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
+        kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
+
+        
 
     context = {
         'page_title'            : 'Home',
         'datasemuasurat'        :  datasemuasurat,
-        'datasemuasurat_admin'  :  datasemuasurat_admin,
+        # 'datasemuasurat_admin'  :  datasemuasurat_admin,
         'user'                  :  user,
         'admin_user'            :  admin_user,
         'klasifikasi'           :  klasifikasi,
@@ -522,7 +544,7 @@ def hari_ini(request):
     return render(request , 'pages/hari_ini.html', context)
 
 def laporan_harian(request):
-    all_users = list(User.objects.values_list('username', flat=True))
+    all_users = list(DatabaseSurat.objects.values_list('username', flat=True))
     hari_ini = date.today()
 
     label = []
@@ -591,7 +613,7 @@ def laporan_bulanan(request):
     month_temp = []
     year_temp = []
     
-    all_users = list(User.objects.all().values_list('username', flat=True ))
+    all_users = list(DatabaseSurat.objects.all().values_list('username', flat=True ))
     data_tahun = list(DatabaseSurat.objects.all().values_list('tahun', flat=True).distinct())
 
     try:
