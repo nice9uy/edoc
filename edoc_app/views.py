@@ -16,6 +16,7 @@ from django.utils.dateparse import parse_date
 @csrf_protect
 @login_required(login_url="/accounts/login/")
 def home(request):
+
     id_username = request.user.pk
 
     user = request.user
@@ -23,33 +24,42 @@ def home(request):
     admin = request.user.is_superuser
     admin_user = list(DatabaseSurat.objects.all().values_list("username" , flat=True).distinct())
 
-    tag = []
+    try:
 
-    if request.method == 'POST' and admin == True:
-        admin_check = request.POST.get('user')
+        if request.method == 'POST' and admin == True:
+            admin_check = request.POST.get('user')
+        
+            datasemuasurat = DatabaseSurat.objects.filter(username = admin_check).values()
+            klasifikasi = KlasifikasiSurat.objects.filter(username = admin_check).values_list("nama_klasifikasi" , flat=True)
+            kelompok = KelompokSurat.objects.filter(username = admin_check).values_list("nama_kelompok", flat=True)
 
-        datasemuasurat = DatabaseSurat.objects.filter(username = admin_check).values()
-        klasifikasi = KlasifikasiSurat.objects.filter(username = admin_check).values_list("nama_klasifikasi" , flat=True)
-        kelompok = KelompokSurat.objects.filter(username = admin_check).values_list("nama_kelompok", flat=True)
+            x = admin_check
 
-    elif admin == True:
-        datasemuasurat = DatabaseSurat.objects.all()
-        klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
-        kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
+        elif admin == True:
+            datasemuasurat = DatabaseSurat.objects.all()
+            klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
+            kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
 
-    else:
-        datasemuasurat = DatabaseSurat.objects.filter(id_user = id_username).values()
-        klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
-        kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
+            x = ''
+
+        else:
+            datasemuasurat = DatabaseSurat.objects.filter(id_user = id_username).values()
+            klasifikasi = KlasifikasiSurat.objects.filter(id_user = id_username).values_list("nama_klasifikasi" , flat=True)
+            kelompok = KelompokSurat.objects.filter(id_user = id_username).values_list("nama_kelompok", flat=True)
+
+            x = ''
+    except:
+       pass
+
 
     context = {
         'page_title'            : 'Home',
         'datasemuasurat'        :  datasemuasurat,
-        # 'tag_judul'             :  admin_check,
         'user'                  :  user,
         'admin_user'            :  admin_user,
         'klasifikasi'           :  klasifikasi,
         'kelompok'              :  kelompok,
+        'tag_judul'             :  x,
     }
     
     return render(request,'pages/index.html', context)
