@@ -30,7 +30,7 @@
                   <option value="{{ user }}">{{ user}}</option>
                   {% endfor %}
                 </select>
-                <button type="submit" class="btn btn-primary btn-sm">Cari</button>
+                <button type="submit" class="btn btn-primary btn-sm">Setting</button>
               </div>
           </form>
         </div>
@@ -38,7 +38,7 @@
         <div style="margin-right: 5.25rem;">
           <div class="d-flex gap-2 col-10 mb-2 mx-5" >
             <div class="col-5">
-              <select class="form-select form-select-sm" title="Filter Surat" onkeyup="surat()" required aria-label="Default select example" name="surat">
+              <select class="form-select form-select-sm" title="Filter Surat" id="surat" required aria-label="Default select example" name="surat">
                 <option value="">SURAT</option>
                 <option value="">------</option>
                 <option value="Masuk">Masuk</option>
@@ -46,7 +46,7 @@
               </select>
             </div>
             <div class="col-5">
-              <select class="form-select form-select-sm" title="Filter Klasifikasi" required aria-label="Default select example" name="klasifikasi">
+              <select class="form-select form-select-sm" title="Filter Klasifikasi"  id="klasifikasi"  required aria-label="Default select example" name="klasifikasi">
                 <option value="">KLASIFIKASI </option>
                 <option value="">-----------</option>
                 {% for v in klasifikasi %}
@@ -55,7 +55,7 @@
               </select>
             </div>
             <div class="col-5">
-              <select class="form-select form-select-sm" title="Filter Kelompok" required aria-label="Default select example" name="kelompok">
+              <select class="form-select form-select-sm" title="Filter Kelompok" id="kelompok" required aria-label="Default select example" name="kelompok">
                 <option value="">KELOMPOK </option>
                 <option value="">--------</option>
                 {% for v in kelompok %}
@@ -105,20 +105,20 @@
        <h5 class="text-center">DATA SEMUA SURAT</h5>
         <div style="margin-top: -2.5rem; margin-left: 60rem;">
           <div class="d-flex gap-2 col-12 mb-2" >
-              <select class="form-select form-select-sm" title="Filter Surat" required aria-label="Default select example" name="surat">
+              <select class="form-select form-select-sm" title="Filter Surat" id="surat" required aria-label="Default select example" name="surat">
                 <option value="">SURAT</option>
                 <option value="Masuk">Masuk</option>
                 <option value="Keluar">Keluar</option>
               </select>
 
-              <select class="form-select form-select-sm" title="Filter Klasifikasi" required aria-label="Default select example" name="klasifikasi">
+              <select class="form-select form-select-sm" title="Filter Klasifikasi" id="klasifikasi" required aria-label="Default select example" name="klasifikasi">
                 <option value="">KLASIFIKASI </option>
                 {% for v in klasifikasi %}
                 <option value="{{ v }}">{{v}}</option>
                 {% endfor %}
               </select>
 
-              <select class="form-select form-select-sm" title="Filter Kelompok" required aria-label="Default select example" name="kelompok">
+              <select class="form-select form-select-sm" title="Filter Kelompok" id="kelompok" required aria-label="Default select example" name="kelompok">
                 <option value="">KELOMPOK </option>
                 {% for v in kelompok %}
                 <option value="{{ v }}">{{v}}</option>
@@ -168,17 +168,6 @@
         <p class="text-center text-muted">&copy; 2023 - {% now "Y" %}  e-doc - Baranahan</p>
     </footer>
 </div>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $("#surat").on("keyup", function() {
-      var value = $(this).val().toLowerCase();
-      $("#tabel_index tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
-    });
-  });
-</script>
 
 
 {% endblock index %}

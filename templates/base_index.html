@@ -35,7 +35,7 @@
         
                  
         <script>
-              new DataTable('#tabel_index')
+              new DataTable('#tabel_index')abdul
             //  new DataTable('#tabel_index', {
             //   "searching": false
             //     });
@@ -69,6 +69,96 @@
                 })
               })()
         </script>
+
+        <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.js"></script>
+
+    <script>
+
+      /* Plugin API method to determine is a column is sortable */
+            $.fn.dataTable.Api.register('column().searchable()', function() {
+              var ctx = this.context[0];
+              return ctx.aoColumns[this[0]].bSearchable;
+            });
+
+            function createDropdowns(api) {
+              api.columns().every(function() {
+                if (this.searchable()) {
+                  var that = this;
+                  var col = this.index();
+
+                  // Only create if not there or blank
+                  var selected = $('thead tr:eq(1) td:eq(' + col + ') select').val();
+                  if (selected === undefined || selected === '') {
+                    // Create the `select` element
+                    $('thead tr:eq(1) td')
+                      .eq(col)
+                      .empty();
+                    var select = $('<select><option value=""></option></select>')
+                      .appendTo($('thead tr:eq(1) td').eq(col))
+                      .on('change', function() {
+                        that.search($(this).val()).draw();
+                        createDropdowns(api);
+                      });
+
+                    api
+                      .cells(null, col, {
+                        search: 'applied'
+                      })
+                      .data()
+                      .sort()
+                      .unique()
+                      .each(function(d) {
+                        select.append($('<option>' + d + '</option>'));
+                      });
+                  }
+                }
+              });
+            }
+
+            $(document).ready(function() {
+              // Create the DataTable
+              var table = $('#example').DataTable({
+                fixedHeader: true,
+                orderCellsTop: true,
+                columnDefs: [
+                  {
+                    searchable: false,
+                    targets: [0, 4]
+                  }
+                ],
+                initComplete: function() {
+                  createDropdowns(this.api());
+                }
+              });
+            });
+
+    </script>
+
+    <script>
+
+      $(document).ready(function() {
+        // Initialize DataTables
+        var table = $('#tabel_index').DataTable();
+    
+        // Add event listeners to the select elements
+        $('#surat, #klasifikasi,#kelompok').on('change', function() {
+            // Get the selected values from both select options
+            var selectedValue1 = $('#surat').val();
+            var selectedValue2 = $('#klasifikasi').val();
+            var selectedValue3 = $('#kelompok').val();
+    
+            // Apply the filters to the DataTable
+            table.columns(0).search(selectedValue1).draw();
+            table.columns(1).search(selectedValue2).draw();
+            table.columns(2).search(selectedValue3).draw();
+            });
+        });
+
+    </script> 
+
+
 
        
 </body>
