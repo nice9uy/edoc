@@ -13,6 +13,13 @@ from datetime import datetime
 from django.utils.dateparse import parse_date
 
 
+
+def dashboard(request):
+
+
+    return render(request,'pages/dashboard.html')
+
+
 @csrf_protect
 @login_required(login_url="/accounts/login/")
 def home(request):

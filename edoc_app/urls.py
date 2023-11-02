@@ -2,10 +2,15 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.home, name='home' ),
+    path('dashboard/', views.dashboard, name='dashboard' ),
+
+    path('data_surat/', views.home, name='home'),
+
     path('tambah_data/', views.tambah_data, name='tambah_data' ),
     # path('setting_data/', views.setting_data, name='setting_data'),
     path('setting/', views.setting, name='setting'),
+
+    # path('setting/', views.setting, name='setting'),
 
     path('hari_ini/', views.hari_ini, name='hari_ini'),
 
