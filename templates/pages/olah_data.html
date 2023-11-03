@@ -1,12 +1,14 @@
 {% extends 'base_index.html' %} 
 {% load static %} 
 
-
+  
 {% block olah_data %}
 
 {%include 'partials/header_olah_data.html' %}
 
-<div style="margin-right: 5.25rem;">
+<div style="margin-right: 0.75rem; margin-bottom: -2rem; ">
+<div class="d-flex justify-content-end mt-2">
+  <div style="margin-right: 5.25rem;">
     <div class="d-flex gap-2 col-10 mb-2 mx-5" >
       <div class="col-5">
         <select class="form-select form-select-sm" title="Filter Surat" id="surat" required aria-label="Default select example" name="surat">
@@ -37,8 +39,10 @@
       </div> 
     </div>
   </div>
+</div>
+</div>
 
-<div class="container-fluid mt-1 text-white">
+<div class="container-fluid text-white">
     <h5 class="text-center">SEMUA SURAT</h5> 
     <table id="tabel_index" class="table table-striped table-bordered text-white" style="width:100%">
         <thead>
