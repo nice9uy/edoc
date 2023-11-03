@@ -6,20 +6,20 @@
 <div>
     <nav class="navbar bg-body-secondary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'home' %}">
+        <a class="navbar-brand" href="{% url 'dashboard' %}">
           <img
             src="{% static 'img/kemhan_logo.png'%}"
             alt="KEMHAN Logo"
             width="45"
             height="45"
           />
-          <span>e-doc Baranahan  123</span>
+          <span>e-doc Baranahan</span>
         </a>
         <nav class="navbar navbar-expand-sm ">
           <div class="container-fluid ">
             <ul class="navbar-nav gap-4">
               <li class="nav-item">
-                <a class="fa-solid fa-arrow-left" aria-current="page" href="{% url 'home' %}" ></a>
+                <a class="fa-solid fa-arrow-left" aria-current="page" href="{% url 'dashboard' %}" ></a>
               </li>
               <li class="nav-item">
                   <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'laporan_harian' %}">Laporan Harian</a>

@@ -15,9 +15,27 @@ from django.utils.dateparse import parse_date
 
 
 def dashboard(request):
+    id_username = request.user.pk
+    user = request.user
+    admin = request.user.is_superuser
+    hari_ini = date.today()
+    bulan = datetime.now().month
+    
+    surat_masuk = DatabaseSurat.objects.filter(id_user = id_username , surat = "Masuk").count()
+    surat_keluar = DatabaseSurat.objects.filter(id_user = id_username , surat = "Keluar").count()
+    now = DatabaseSurat.objects.filter(id_user = id_username , today =  hari_ini ).count()
 
 
-    return render(request,'pages/dashboard.html')
+    context = {
+        'page_title' : 'Dashboard',
+        'masuk' : surat_masuk,
+        'keluar' : surat_keluar,
+        'hari_ini' : now,
+        'tgl'     : hari_ini,
+        'bulan'   : bulan,
+    }
+
+    return render(request,'pages/dashboard.html', context)
 
 
 @csrf_protect
@@ -522,7 +540,7 @@ def delete_olah_data_harian(request, id_delete_olah_data_harian):
             surat       = surat,
             klasifikasi = klasifikasi,
             kelompok    = kelompok,
-            tgl         = tgl,
+            thomegl         = tgl,
             no_surat    = no_surat,
             kepada      = kepada,
             perihal     = prihal,
@@ -535,6 +553,8 @@ def delete_olah_data_harian(request, id_delete_olah_data_harian):
     
     return render(request,'pages/olah_data_harian.html')
 
+@csrf_protect
+@login_required(login_url="/accounts/login/")
 def hari_ini(request):
     id_username = request.user.pk
 
@@ -558,6 +578,8 @@ def hari_ini(request):
 
     return render(request , 'pages/hari_ini.html', context)
 
+@csrf_protect
+@login_required(login_url="/accounts/login/")
 def laporan_harian(request):
     all_users = list(DatabaseSurat.objects.values_list('username', flat=True).distinct())
     hari_ini = date.today()
@@ -615,6 +637,8 @@ def laporan_harian(request):
 
     return render(request , 'pages/laporan_harian.html', context)
 
+@csrf_protect
+@login_required(login_url="/accounts/login/")
 def laporan_bulanan(request):
     now = datetime.now()
     month = now.strftime("%m")

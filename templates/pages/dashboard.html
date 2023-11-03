@@ -6,7 +6,51 @@
 
 {% include 'partials/header.html' %}
 
-<h2>ini dashboard</h2>
+<h4 class="text-center mt-3" style="color: yellow; "  >Total SURAT</h4>
+
+
+    <div class="d-flex gap-3 text-center justify-content-center mt-4 "> 
+        <div class="card">
+            <h5 class="card-header text-bg-success">SURAT MASUK</h5>
+            <div class="card-body">
+                <h5 class="card-title">{{ masuk }}</h5>
+            </div>
+        </div>
+        <div class="card">
+            <h5 class="card-header text-bg-success">SURAT KELUAR</h5>
+            <div class="card-body">
+                <h5 class="card-title">{{ keluar  }}</h5>
+            </div>
+        </div>
+        <div class="card">
+            <h5 class="card-header text-bg-info ">SURAT KONTRAK</h5>
+            <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex gap-3 text-center justify-content-center mt-4 "> 
+        <div class="card">
+            <h5 class="card-header text-bg-success">Tanggal {{ tgl }} </h5>
+            <div class="card-body">
+                <h5 class="card-title">{{  hari_ini }}</h5>
+            </div>
+        </div>
+        <div class="card">
+            <h5 class="card-header text-bg-success">Bulan {{ bulan }}</h5>
+            <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+            </div>
+        </div>
+        <div class="card">
+            <h5 class="card-header text-bg-info ">Tahun </h5>
+            <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+            </div>
+        </div>
+    </div>
+
 
 
 

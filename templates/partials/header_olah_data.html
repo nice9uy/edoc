@@ -3,7 +3,7 @@
 <div>
   <nav class="navbar bg-body-secondary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'home' %}">
+      <a class="navbar-brand" href="{% url 'dashboard' %}">
         <img
           src="{% static 'img/kemhan_logo.png'%}"
           alt="KEMHAN Logo"
@@ -19,10 +19,10 @@
               <a class="fa-solid fa-arrow-left" href="{% url 'home' %}" ></a>
             </li> 
             <li class="nav-item">
-              <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'olah_data'%}">Semua Data</a>
+              <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'olah_data'%}">Semua Surat</a>
             </li>
             <li class="nav-item">
-                <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'olah_data_harian'%}">Data Harian</a>
+                <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'olah_data_harian'%}">Surat Perhari</a>
               </li>
           </ul>   
         </div>

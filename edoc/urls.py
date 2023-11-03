@@ -22,8 +22,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls,name = 'administrator'),
-    path('',RedirectView.as_view(url='edoc/')),
+    path('',RedirectView.as_view(url='edoc/dashboard/')),
     path('edoc/',include('edoc_app.urls')),
+    path('edoc/kontrak/',include('kontrak_app.urls')),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path("__debug__/", include("debug_toolbar.urls")),

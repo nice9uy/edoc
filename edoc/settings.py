@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     'edoc_app',
     'accounts',
+    'kontrak_app',
 
 ]
 

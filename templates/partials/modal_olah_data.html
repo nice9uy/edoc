@@ -6,7 +6,7 @@
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="edit_olah_data">Edit Data</h1>
+            <h1 class="modal-title fs-5" id="edit_olah_data">Edit Surat</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
@@ -17,12 +17,14 @@
                   <div class="d-flex gap-4">
                        <select class="form-select" id="surat" required name="surat">
                             <option value="">SURAT</option>
+                            <option value="">------</option>
                             <option value="Masuk" >Masuk</option>
                             <option value="Keluar">Keluar</option>
                         </select>  
 
                         <select class="form-select" id="klasifikasi" required name="klasifikasi">
                             <option value="">KLASIFIKASI</option>
+                            <option value="">-----------</option>
                             {% for dataklasifikasi in klasifikasi %}
                                 <option value="{{ dataklasifikasi }}"  >{{ dataklasifikasi }} </option>
                             {% endfor %}
@@ -30,6 +32,7 @@
 
                         <select class="form-select" id="kelompok" required name="kelompok">
                             <option value="">KELOMPOK</option>
+                            <option value="">--------</option>
                             {% for datakelompok in kelompok %}
                                 <option value="{{ datakelompok }}" >{{ datakelompok }}</option>
                             {% endfor %}
@@ -68,7 +71,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="delete_surat">Hapus Data</h1>
+            <h1 class="modal-title fs-5" id="delete_surat">Hapus Surat</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <form action="{% url 'delete_olah_data' data.id %}" method="POST">

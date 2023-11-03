@@ -3,7 +3,7 @@
 <div>
   <nav class="navbar bg-body-secondary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'home' %}">
+      <a class="navbar-brand" href="{% url 'dashboard' %}">
         <img src="{% static 'img/kemhan_logo.png' %}" alt="KEMHAN Logo" width="45" height="45" />
         <span>e-doc Baranahan</span>
       </a>
@@ -17,41 +17,32 @@
             <li class="nav-item">
               <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" aria-current="page" href="{% url 'dashboard' %}">Dashboard</a>
             </li>
-              <li class="nav-item">
-                <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" aria-current="page" href="{% url 'home' %}">Home</a>
-              </li>
+             
 
               <li class="nav-item">
                 <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'laporan_harian' %}">Laporan</a>
               </li>
 
               <li class="nav-item">
-                <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" aria-current="page" href="{% url 'home' %}">Kontrak</a>
+                <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" aria-current="page" href="{% url 'kontrak' %}">Kontrak</a>
               </li>
 
               <li class="nav-item">
                 <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'logout' %}">Logout</a>
               </li>
+
             {% else %}
+            
             <li class="nav-item">
               <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" aria-current="page" href="{% url 'dashboard' %}">Dashboard</a>
             </li>
             <li class="nav-item">
-              <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" aria-current="page" href="{% url 'home' %}">Kontrak</a>
+              <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" aria-current="page" href="{% url 'kontrak' %}">Kontrak</a>
             </li>
               <li class="nav-item">
-                <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" aria-current="page" href="{% url 'home' %}">Home</a>
+                <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" aria-current="page" href="{% url 'home' %}">Surat</a>
               </li>
-              <li class="nav-item">
-                <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'tambah_data' %}">Tambah Data</a>
-              </li>
-
-              <li class="nav-item">
-                <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'olah_data' %}">Olah Data</a>
-              </li>
-              <li class="nav-item">
-                <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'setting' %}">Settings</a>
-              </li>
+             
               <li class="nav-item">
                 <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'logout' %}">Logout</a>
               </li>

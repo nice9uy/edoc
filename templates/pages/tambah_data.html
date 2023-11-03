@@ -3,10 +3,10 @@
 
 {% block tambah_data %}
 
-{%include 'partials/header.html' %}
+{%include 'partials/header_surat.html' %}
 
 <div class="container mt-5">
-    <p class="text-center" style="font-size: 25px;">TAMBAH DATA</p>
+    <p class="text-center" style="font-size: 25px;">TAMBAH SURAT</p>
     <form action="{% url 'tambah_data'%}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate >  
        {% csrf_token %}     
         
@@ -16,12 +16,14 @@
   
           <select class="form-select" required aria-label="Default select example" name="surat">
             <option value="">SURAT</option>
+            <option value="">------</option>
             <option value="Masuk">Masuk</option>
             <option value="Keluar">Keluar</option>
           </select>
 
           <select class="form-select" required aria-label="Default select example" name="klasifikasi">
             <option value="">KLASIFIKASI SURAT</option>
+            <option value="">-----------</option>
             {% for v in klasifikasi %}
             <option value="{{ v }}">{{v}}</option>
             {% endfor %}
@@ -29,6 +31,7 @@
 
           <select class="form-select" required aria-label="Default select example" name="kelompok">
             <option value="">KELOMPOK SURAT</option>
+            <option value="">--------</option>
             {% for v in kelompok %}
             <option value="{{ v }}">{{v}}</option>
             {% endfor %}

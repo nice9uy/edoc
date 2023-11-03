@@ -3,7 +3,6 @@
 
 {% block settings %}
 
-{% comment %} {%include 'partials/header.html' %} {% endcomment %}
 
 {%include 'partials/header_setting.html' %}
 
@@ -32,34 +31,6 @@
             </tbody>
         </table>
 
-
-
-
-
-
-
-
-
-
-
-            {% comment %} <thead>
-                <tr>   
-                    <th class="text-center">Klasifikasi</th>
-                    <th class="text-center">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for data in klasifikasi %}
-                <tr>
-                        <td>{{ data.nama_klasifikasi }}</td>
-                        <td class="text-center"> 
-                             <button type="button" class="btn btn-success fas fa-edit"  data-bs-toggle="modal"  data-placement="bottom" title="Edit" data-bs-target="#edit_klasifikasi{{ data.id }}"></button>
-                             <button type="button" class="btn btn-danger fa fa-trash"  data-bs-toggle="modal" data-placement="bottom" title="Hapus" data-bs-target="#delete_klasifikasi{{ data.id }}"></button>
-                        </td>  
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table> {% endcomment %}
         <div class="gap-2 col-sm-4 mx-auto ">
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-placement="bottom" title="Tambah Data Klasifikasi" data-bs-target="#ModalKlasifikasi">Tambah Klasifikasi</button>
         </div>
