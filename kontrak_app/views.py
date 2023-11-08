@@ -15,3 +15,8 @@ def kontrak(request):
    
 
     return render (request, 'kontrak/pages/index.html') 
+
+
+def tambah_kontrak(request):
+
+    return render (request, 'kontrak/pages/tambah_kontrak.html') 

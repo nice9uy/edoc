@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 def user_folder(instance, filename):
-    return f"{instance.username}/{filename}"
+    return f"{instance.username}/surat/{filename}"
 
 class DatabaseSurat(models.Model):
   
