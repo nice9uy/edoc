@@ -14,19 +14,25 @@
             <span>Selamat Datang , {{ user|capfirst }}</span>
 
             {% if user.is_active and user.is_superuser %}
+
             <li class="nav-item">
               <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" aria-current="page" href="{% url 'dashboard' %}">Dashboard</a>
             </li>
              
-
               <li class="nav-item">
                 <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'laporan_harian' %}">Laporan</a>
               </li>
 
-            
+              <li class="nav-item">
+                <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'home' %}">Surat</a>
+              </li>
 
               <li class="nav-item">
-                <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'logout' %}">Logout</a>
+                <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'laporan_harian' %}">Kontrak</a>
+              </li>
+
+              <li class="nav-item">
+                <a type="button" class="btn btn-danger btn-sm fa fa-sign-out" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Logout" href="{% url 'logout' %}"></a>
               </li>
 
             {% else %}
@@ -42,8 +48,9 @@
               </li>
              
               <li class="nav-item">
-                <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'logout' %}">Logout</a>
+                <a type="button" class="btn btn-danger btn-sm fa fa-sign-out" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Logout" href="{% url 'logout' %}"></a>
               </li>
+
             {% endif %}
           </ul>
         </div>
@@ -51,3 +58,4 @@
     </div>
   </nav>
 </div>
+

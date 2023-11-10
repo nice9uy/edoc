@@ -16,6 +16,21 @@
               <a class="fa-solid fa-arrow-left" href="{% url 'dashboard' %}" ></a>
             </li> 
 
+            {% if user.is_active and user.is_superuser %}
+
+            <li class="nav-item">
+              <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" aria-current="page" href="{% url 'home' %}">Surat</a>
+            </li>
+
+            {% comment %} {% elif  user.is_active and user.is_staff %}
+
+            <li class="nav-item">
+              <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" aria-current="page" href="{% url 'home' %}">cccccc</a>
+            </li> {% endcomment %}
+
+
+            {% else %}
+
               <li class="nav-item">
                 <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" aria-current="page" href="{% url 'home' %}">Surat</a>
               </li>
@@ -30,6 +45,8 @@
                 <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'setting' %}">Settings</a>
               </li>
             
+              {% endif %}
+
           </ul>
         </div>
       </nav>

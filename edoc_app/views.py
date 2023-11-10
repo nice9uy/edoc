@@ -25,6 +25,9 @@ def dashboard(request):
     surat_keluar = DatabaseSurat.objects.filter(id_user = id_username , surat = "Keluar").count()
     now = DatabaseSurat.objects.filter(id_user = id_username , today =  hari_ini ).count()
 
+    # x = request.user.groups.all()
+
+    # print(x)
 
     context = {
         'page_title' : 'Dashboard',
@@ -48,6 +51,13 @@ def home(request):
 
     admin = request.user.is_superuser
     admin_user = list(DatabaseSurat.objects.all().values_list("username" , flat=True).distinct())
+
+    # x = request.user.groups.all()
+
+    # x = User.objects.all().exclude(username = "nice9uy")
+
+
+    # print(x)
 
     try:
 
