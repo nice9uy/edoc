@@ -20,3 +20,8 @@ def kontrak(request):
 def tambah_kontrak(request):
 
     return render (request, 'kontrak/pages/tambah_kontrak.html') 
+
+
+def olah_kontrak(request):
+
+    return render (request, 'kontrak/pages/olah_kontrak.html') 
