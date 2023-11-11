@@ -56,7 +56,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="edit_kelompok">Edit Kelompok</h1>
+              <h1 class="modal-title fs-5" id="edit_kelompok">Edit Folder</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -88,7 +88,7 @@
             <form action="{% url 'delete_setting_kelompok' data.id %}" method="POST">
               {% csrf_token %}
               <div class="modal-body">
-                <p>Apakah yakin Kelompok "{{data.nama_kelompok}}" ini ingin dihapus?</p>
+                <p>Apakah yakin Folder "{{data.nama_kelompok}}" ini ingin dihapus?</p>
               </div>
               <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Hapus</button>

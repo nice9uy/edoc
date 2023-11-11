@@ -10,7 +10,34 @@
 <div class="container-fluid text-white mt-2">
     <div>
     <h5 class="text-center">SEMUA KONTRAK</h5> 
-
+    <div style="margin-top: -2rem;">
+    <div class="d-flex justify-content-end">
+  
+        <div style="margin-right: 6rem;">
+          <div class="d-flex gap-2 col-8 mb-2 mx-5" >
+            <div class="col-9">
+              <select class="form-select form-select-sm" title="Filter Klasifikasi"  id="klasifikasi"  required aria-label="Default select example" name="klasifikasi">
+                <option value="">SUMBER DANA </option>
+                <option value="">-----------</option>
+                {% for v in klasifikasi %}
+                <option value="{{ v }}">{{v}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-11">
+              <select class="form-select form-select-sm" title="Filter Kelompok" id="kelompok" required aria-label="Default select example" name="kelompok">
+                <option value="">MATRA </option>
+                <option value="">--------</option>
+                {% for v in kelompok %}
+                <option value="{{ v }}">{{v}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
 
 
     
@@ -18,7 +45,7 @@
         <thead>
             <tr>
                 <th class="text-center">Kontrak</th>
-                <th class="text-center">Pinjaman</th>
+                <th class="text-center">Sumber Dana</th>
                 <th class="text-center">Matra</th>
                 <th class="text-center">Tentang</th>
                 <th class="text-center">Tanggal</th>
