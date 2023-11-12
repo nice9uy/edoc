@@ -11,9 +11,11 @@ from django.contrib.auth.models import User
 import datetime
 from datetime import datetime
 from django.utils.dateparse import parse_date
+from django.db.models import Count
 
 
-
+@csrf_protect
+@login_required(login_url="/accounts/login/")
 def dashboard(request):
     id_username = request.user.pk
     user = request.user
@@ -27,7 +29,14 @@ def dashboard(request):
 
     # x = request.user.groups.all()
 
-    # print(x)
+    # duplicate_records = DatabaseSurat.objects.values('surat', 'klasifikasi', 'kelompok','tgl','no_surat','kepada','perihal').annotate(count=Count('id')).filter(count__gt=1)
+
+    # for record in duplicate_records:
+    #     # Fetch all records with the duplicate combination of fields
+    #     duplicates = DatabaseSurat.objects.filter(surat=record['surat'], klasifikasi=record['klasifikasi'], kelompok=record['kelompok'],  tgl=record['tgl'], no_surat=record['no_surat'] ,  kepada=record['kepada'] , perihal=record['perihal'])
+
+
+    # print(duplicates)
 
     context = {
         'page_title' : 'Dashboard',
@@ -39,6 +48,29 @@ def dashboard(request):
     }
 
     return render(request,'pages/dashboard.html', context)
+
+@csrf_protect
+@login_required(login_url="/accounts/login/")
+def duplikasi_surat(request):
+    try:
+        duplicate_records = DatabaseSurat.objects.values('surat', 'klasifikasi', 'kelompok','tgl','no_surat','kepada','perihal').annotate(count=Count('id')).filter(count__gt=1)
+
+        for record in duplicate_records:
+            # Fetch all records with the duplicate combination of fields
+            duplicates = DatabaseSurat.objects.filter(surat=record['surat'], klasifikasi=record['klasifikasi'], kelompok=record['kelompok'],  tgl=record['tgl'], no_surat=record['no_surat'] ,  kepada=record['kepada'] , perihal=record['perihal'])
+        
+        context = { 
+             'page_title' : 'Cari Duplikat',
+             'duplicates' : duplicates,
+            }   
+        
+        return render(request,'pages/cari_duplicate.html', context)
+             
+    except:
+        pass
+
+    return render(request,'pages/cari_duplicate.html')
+
 
 
 @csrf_protect

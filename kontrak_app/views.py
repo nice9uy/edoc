@@ -25,3 +25,5 @@ def tambah_kontrak(request):
 def olah_kontrak(request):
 
     return render (request, 'kontrak/pages/olah_kontrak.html') 
+
+

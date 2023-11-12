@@ -10,7 +10,10 @@ urlpatterns = [
     # path('setting_data/', views.setting_data, name='setting_data'),
     path('setting/', views.setting, name='setting'),
 
-    # path('setting/', views.setting, name='setting'),
+    path('duplikasi_surat/', views.duplikasi_surat, name='duplikasi_surat'),
+
+
+
 
     path('hari_ini/', views.hari_ini, name='hari_ini'),
 

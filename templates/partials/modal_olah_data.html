@@ -31,7 +31,7 @@
                         </select>
 
                         <select class="form-select" id="kelompok" required name="kelompok">
-                            <option value="">KELOMPOK</option>
+                            <option value="">FOLDER</option>
                             <option value="">--------</option>
                             {% for datakelompok in kelompok %}
                                 <option value="{{ datakelompok }}" >{{ datakelompok }}</option>
@@ -80,7 +80,7 @@
                 <div class="mb-3" >
                       <span>Surat       : {{data.surat}}</span> <br>
                       <span>Klasifikasi : {{data.klasifikasi}}</span> <br>
-                      <span>Kelompok    : {{data.kelompok}}</span> <br>
+                      <span>Folder      : {{data.kelompok}}</span> <br>
                       <span>Tanggal     : {{data.tgl}}</span> <br>
                       <span>No Surat    : {{data.no_surat}}</span> <br>
                       <span>Kepada      : {{data.kepada}}</span> <br>

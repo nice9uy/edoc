@@ -13,7 +13,7 @@
           <ul class="navbar-nav gap-4">
 
             <li class="nav-item">
-              <a class="fa-solid fa-arrow-left" href="{% url 'dashboard' %}" ></a>
+              <a type="button" class="btn btn-success btn-sm fa-solid fa-arrow-left" href="{% url 'dashboard' %}" ></a>
             </li> 
 
             {% if user.is_active and user.is_superuser %}
