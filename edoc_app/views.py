@@ -57,13 +57,26 @@ def duplikasi_surat(request):
 
         for record in duplicate_records:
             # Fetch all records with the duplicate combination of fields
-            duplicates = DatabaseSurat.objects.filter(surat=record['surat'], klasifikasi=record['klasifikasi'], kelompok=record['kelompok'],  tgl=record['tgl'], no_surat=record['no_surat'] ,  kepada=record['kepada'] , perihal=record['perihal'])
-        
+            duplicates = DatabaseSurat.objects.filter( surat=record['surat'], klasifikasi=record['klasifikasi'], kelompok=record['kelompok'],  tgl=record['tgl'], no_surat=record['no_surat'] ,  kepada=record['kepada'] , perihal=record['perihal'])
+
+            x = list(duplicates.values_list('id' ,flat=True))
+
+
+            print(x)
+
+
+
         context = { 
              'page_title' : 'Cari Duplikat',
              'duplicates' : duplicates,
             }   
         
+
+
+        # x = duplicate_records.
+        
+        # print(x)
+
         return render(request,'pages/cari_duplicate.html', context)
              
     except:

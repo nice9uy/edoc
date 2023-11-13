@@ -1,7 +1,7 @@
 {% load static %}
 
 <!-- modal untuk edit Olah Data -->
-{% for data in datasemuasurat %} 
+{% comment %} {% for data in datasemuasurat %} 
     <div class="modal fade" id="button_edit_olah_data_harian{{ data.id }}" tabindex="-1" aria-labelledby="button_edit_olah_data_harian" aria-hidden="true">
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -63,11 +63,11 @@
         </div>
       </div>
     </div>
-{% endfor %}
+{% endfor %} {% endcomment %}
 
 <!-- modal untuk delete Olah Data -->
-{% for data in datasemuasurat %} 
-    <div class="modal fade" id="button_delete_olah_data_harian{{ data.id }}" tabindex="-1" aria-labelledby="delete_surat" aria-hidden="true">
+{% comment %} {% for data in datasemuasurat %} 
+    <div class="modal fade" id="button_delete_cari_data{{ data.id }}" tabindex="-1" aria-labelledby="delete_surat" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -95,5 +95,28 @@
         </div>
       </div>
     </div>
-{% endfor %}
+{% endfor %} {% endcomment %}
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="button_delete_cari_data" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 

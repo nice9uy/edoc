@@ -1,5 +1,9 @@
 from django.urls import path
 from . import views
+from django.views.generic.base import RedirectView
+from django.contrib.staticfiles.storage import staticfiles_storage
+
+favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 
 urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard' ),

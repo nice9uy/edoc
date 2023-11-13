@@ -11,6 +11,7 @@
     <table id="tabel_index" class="table table-striped table-bordered text-white" style="width:100%">
         <thead>
             <tr>
+                <th class="text-center">Id</th>
                 <th class="text-center">Surat</th>
                 <th class="text-center">Klasifikasi</th>
                 <th class="text-center">Folder</th>
@@ -19,11 +20,12 @@
                 <th class="text-center">Kepada</th>
                 <th class="text-center">Prihal</th>
                 <th class="text-center">Files</th>
-                <th class="text-center">Aksi</th>
+                <th class="text-center">Hapus</th>
         </thead>
         <tbody>
                 {% for data in duplicates %}
                 <tr>
+                        <td>{{ data.id }}</td>
                         <td>{{ data.surat }}</td>
                         <td>{{ data.klasifikasi }}</td>
                         <td>{{ data.kelompok }}</td>
@@ -37,8 +39,7 @@
                             </div>
                         </td>
                         <td class="text-center px-3"> 
-                            <button type="button" class="btn btn-success fas fa-edit"  data-bs-toggle="modal"  data-placement="bottom" title="Edit" data-bs-target="#button_edit_olah_data{{ data.id }}" ></button>
-                            <button type="button" class="btn btn-danger fa fa-trash"  data-bs-toggle="modal" data-placement="bottom" title="Hapus" data-bs-target="#button_delete_olah_data{{ data.id }}"></button>
+                            <button type="button" class="btn btn-danger fa fa-trash"  data-bs-toggle="modal" data-placement="bottom" title="Hapus" data-bs-target="#button_delete_cari_data{{ data.id }}"></button>
                     </td>
                 </tr>
                 {% endfor %} 
@@ -46,7 +47,7 @@
     </table>
 </div>
 
-{% include 'partials/modal_olah_data.html' %}
+{% include 'partials/modal_cari_duplikat.html' %}
 
 <div class="container">
     <footer class="">
