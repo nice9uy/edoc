@@ -59,16 +59,15 @@ def duplikasi_surat(request):
             # Fetch all records with the duplicate combination of fields
             duplicates = DatabaseSurat.objects.filter( surat=record['surat'], klasifikasi=record['klasifikasi'], kelompok=record['kelompok'],  tgl=record['tgl'], no_surat=record['no_surat'] ,  kepada=record['kepada'] , perihal=record['perihal'])
 
-            x = list(duplicates.values_list('id' ,flat=True))
+            # x = list(duplicates.values_list('id' ,flat=True))
 
 
-            print(x)
-
+            # print(x)
 
 
         context = { 
              'page_title' : 'Cari Duplikat',
-             'duplicates' : duplicates,
+             'datasemuasurat' : duplicates,
             }   
         
 
@@ -595,7 +594,7 @@ def delete_olah_data_harian(request, id_delete_olah_data_harian):
             surat       = surat,
             klasifikasi = klasifikasi,
             kelompok    = kelompok,
-            thomegl         = tgl,
+            tgl         = tgl,
             no_surat    = no_surat,
             kepada      = kepada,
             perihal     = prihal,
